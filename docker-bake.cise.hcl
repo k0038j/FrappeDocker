@@ -30,5 +30,8 @@ target "cise" {
     HRMS_EXPECTED_SHA    = "e1481b5cd038657d82357d91a2d81cc84c707016"
   }
 
-  secret = ["id=apps_json,src=apps.json"]
+  secret = [
+    "id=apps_json,src=apps.json",
+    "id=ca_cert,src=.docker-proxy-ca.crt",
+  ]
 }

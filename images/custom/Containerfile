@@ -13,10 +13,14 @@ ARG INSTALL_CHROMIUM=true
 ARG NODE_VERSION=24.13.0
 ENV NVM_DIR=/home/frappe/.nvm
 ENV PATH=${NVM_DIR}/versions/node/v${NODE_VERSION}/bin/:${PATH}
+ENV NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+ENV UV_SYSTEM_CERTS=true
 
-RUN useradd -ms /bin/bash frappe \
+RUN --mount=type=secret,id=ca_cert,target=/tmp/docker-proxy-ca.crt,required=false \
+    useradd -ms /bin/bash frappe \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
+    ca-certificates \
     curl \
     git \
     vim \
@@ -42,6 +46,12 @@ RUN useradd -ms /bin/bash frappe \
     jq \
     # For MIME type detection
     media-types \
+    # Trust the host TLS inspection CA when one is supplied as a BuildKit secret
+    && if [ -s /tmp/docker-proxy-ca.crt ]; then \
+        cp /tmp/docker-proxy-ca.crt /usr/local/share/ca-certificates/docker-proxy-ca.crt; \
+        chmod 0644 /usr/local/share/ca-certificates/docker-proxy-ca.crt; \
+        update-ca-certificates; \
+    fi \
     # NodeJS
     && mkdir -p ${NVM_DIR} \
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
@@ -161,6 +171,18 @@ RUN --mount=type=secret,id=apps_json,target=/opt/frappe/apps.json,uid=1000,gid=1
   echo "{}" > sites/common_site_config.json && \
   find apps -mindepth 1 -path "*/.git" | xargs rm -fr
 
+# HRMS v16.17.1 still points its main Desk icon at the removed People route.
+# Keep the upstream commit pinned and apply this small, reproducible UI overlay.
+RUN set -eux; \
+  cd /home/frappe/frappe-bench; \
+  test "$(grep -c '/desk/people' apps/hrms/hrms/hooks.py)" -eq 2; \
+  test "$(grep -c '/desk/people' apps/hrms/hrms/desktop_icon/frappe_hr.json)" -eq 1; \
+  sed -i 's#/desk/people#/desk/hr-setup#g' \
+    apps/hrms/hrms/hooks.py \
+    apps/hrms/hrms/desktop_icon/frappe_hr.json; \
+  grep -q '/desk/hr-setup' apps/hrms/hrms/hooks.py; \
+  grep -q '/desk/hr-setup' apps/hrms/hrms/desktop_icon/frappe_hr.json
+
 FROM base AS backend
 
 USER frappe
@@ -181,10 +203,12 @@ VOLUME [ \
 USER root
 # This entrypoint script link build assets of the image to the mounted sites volume at container initialization
 COPY resources/core/main-entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod 755 /usr/local/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh /usr/local/bin/nginx-entrypoint.sh && \
+  chmod 755 /usr/local/bin/entrypoint.sh /usr/local/bin/nginx-entrypoint.sh
 
 COPY resources/core/start.sh /usr/local/bin/start.sh
-RUN chmod 755 /usr/local/bin/start.sh
+RUN sed -i 's/\r$//' /usr/local/bin/start.sh && \
+  chmod 755 /usr/local/bin/start.sh
 
 USER frappe
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

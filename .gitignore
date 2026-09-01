@@ -1,5 +1,6 @@
 # Environment Variables
 .env
+.docker-proxy-ca.crt
 
 # mounted volume
 sites
