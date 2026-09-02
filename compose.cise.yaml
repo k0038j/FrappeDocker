@@ -20,9 +20,18 @@ services:
   backend:
     <<: *backend_defaults
     environment:
+      SITE_NAME: ${SITE_NAME:-frontend}
       GUNICORN_THREADS: ${GUNICORN_THREADS:-4}
       GUNICORN_WORKERS: ${GUNICORN_WORKERS:-2}
       GUNICORN_TIMEOUT: ${GUNICORN_TIMEOUT:-120}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'curl -fsS -H "Host: $$SITE_NAME" http://127.0.0.1:8000/api/method/ping >/dev/null'
+      start_period: 60s
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   configurator:
     <<: *backend_defaults
@@ -50,9 +59,9 @@ services:
       db:
         condition: service_healthy
       redis-cache:
-        condition: service_started
+        condition: service_healthy
       redis-queue:
-        condition: service_started
+        condition: service_healthy
 
   create-site:
     <<: *backend_defaults
@@ -127,11 +136,19 @@ services:
       - logs:/home/frappe/frappe-bench/logs
     ports:
       - "${HTTP_PUBLISH_PORT:-8080}:8080"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "curl -fsS http://127.0.0.1:8080/api/method/ping >/dev/null"
+      start_period: 60s
+      interval: 30s
+      timeout: 10s
+      retries: 5
     depends_on:
       backend:
-        condition: service_started
+        condition: service_healthy
       websocket:
-        condition: service_started
+        condition: service_healthy
 
   queue-long:
     <<: *backend_defaults
@@ -141,8 +158,17 @@ services:
       - --queue
       - long,default,short
     environment:
+      SITE_NAME: ${SITE_NAME:-frontend}
       FRAPPE_REDIS_CACHE: redis://redis-cache:6379
       FRAPPE_REDIS_QUEUE: redis://redis-queue:6379
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'bench --site "$$SITE_NAME" doctor >/dev/null'
+      start_period: 60s
+      interval: 60s
+      timeout: 20s
+      retries: 3
 
   queue-short:
     <<: *backend_defaults
@@ -152,20 +178,41 @@ services:
       - --queue
       - short,default
     environment:
+      SITE_NAME: ${SITE_NAME:-frontend}
       FRAPPE_REDIS_CACHE: redis://redis-cache:6379
       FRAPPE_REDIS_QUEUE: redis://redis-queue:6379
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'bench --site "$$SITE_NAME" doctor >/dev/null'
+      start_period: 60s
+      interval: 60s
+      timeout: 20s
+      retries: 3
 
   redis-cache:
     image: redis:6.2.23-alpine
     restart: unless-stopped
     networks:
       - frappe_network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis-queue:
     image: redis:6.2.23-alpine
     restart: unless-stopped
     networks:
       - frappe_network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      start_period: 10s
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
       - redis-queue-data:/data
 
@@ -174,6 +221,16 @@ services:
     command:
       - bench
       - schedule
+    environment:
+      SITE_NAME: ${SITE_NAME:-frontend}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'bench --site "$$SITE_NAME" scheduler status >/dev/null'
+      start_period: 60s
+      interval: 60s
+      timeout: 20s
+      retries: 3
 
   websocket:
     <<: *backend_defaults
@@ -183,6 +240,14 @@ services:
     environment:
       FRAPPE_REDIS_CACHE: redis://redis-cache:6379
       FRAPPE_REDIS_QUEUE: redis://redis-queue:6379
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'curl -fsS "http://127.0.0.1:9000/socket.io/?EIO=4&transport=polling" >/dev/null'
+      start_period: 30s
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   db-data:
