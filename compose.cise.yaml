@@ -19,6 +19,9 @@ x-backend-defaults: &backend_defaults
 services:
   backend:
     <<: *backend_defaults
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
     environment:
       SITE_NAME: ${SITE_NAME:-frontend}
       GUNICORN_THREADS: ${GUNICORN_THREADS:-4}
@@ -75,7 +78,7 @@ services:
         wait-for-it -t 120 redis-cache:6379;
         wait-for-it -t 120 redis-queue:6379;
         if [ -d "sites/$$SITE_NAME" ]; then
-          echo "Site $$SITE_NAME already exists, skipping creation";
+          echo "Site $$SITE_NAME already exists";
         else
           bench new-site "$$SITE_NAME" \
             --mariadb-user-host-login-scope='%' \
@@ -85,7 +88,24 @@ services:
             --install-app erpnext \
             --install-app hrms \
             --set-default "$$SITE_NAME";
-        fi;
+        fi
+
+        installed_apps="$$(bench --site "$$SITE_NAME" list-apps --format json)";
+        for app in erpnext hrms; do
+          if printf '%s' "$$installed_apps" | jq -e \
+            --arg site "$$SITE_NAME" \
+            --arg app "$$app" \
+            '.[$$site] | index($$app)' >/dev/null; then
+            echo "App $$app is already installed on site $$SITE_NAME";
+          else
+            echo "Installing missing app $$app on site $$SITE_NAME";
+            bench --site "$$SITE_NAME" install-app "$$app";
+            installed_apps="$$(bench --site "$$SITE_NAME" list-apps --format json)";
+          fi
+        done
+
+        bench --site "$$SITE_NAME" migrate;
+        bench use "$$SITE_NAME";
     environment:
       SITE_NAME: ${SITE_NAME:-frontend}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}
@@ -152,6 +172,9 @@ services:
 
   queue-long:
     <<: *backend_defaults
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
     command:
       - bench
       - worker
@@ -172,6 +195,9 @@ services:
 
   queue-short:
     <<: *backend_defaults
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
     command:
       - bench
       - worker
@@ -220,6 +246,9 @@ services:
 
   scheduler:
     <<: *backend_defaults
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
     command:
       - bench
       - schedule
@@ -236,6 +265,9 @@ services:
 
   websocket:
     <<: *backend_defaults
+    depends_on:
+      create-site:
+        condition: service_completed_successfully
     command:
       - node
       - /home/frappe/frappe-bench/apps/frappe/socketio.js
