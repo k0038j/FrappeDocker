@@ -61,21 +61,21 @@ services:
       - bash
       - -c
     command:
-      - >
+      - |
         wait-for-it -t 120 db:3306;
         wait-for-it -t 120 redis-cache:6379;
         wait-for-it -t 120 redis-queue:6379;
         if [ -d "sites/$$SITE_NAME" ]; then
           echo "Site $$SITE_NAME already exists, skipping creation";
         else
-          bench new-site "$$SITE_NAME"
-          --mariadb-user-host-login-scope='%'
-          --admin-password="$$ADMIN_PASSWORD"
-          --db-root-username=root
-          --db-root-password="$$DB_PASSWORD"
-          --install-app erpnext
-          --install-app hrms
-          --set-default "$$SITE_NAME";
+          bench new-site "$$SITE_NAME" \
+            --mariadb-user-host-login-scope='%' \
+            --admin-password="$$ADMIN_PASSWORD" \
+            --db-root-username=root \
+            --db-root-password="$$DB_PASSWORD" \
+            --install-app erpnext \
+            --install-app hrms \
+            --set-default "$$SITE_NAME";
         fi;
     environment:
       SITE_NAME: ${SITE_NAME:-frontend}
