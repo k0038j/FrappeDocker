@@ -15,10 +15,12 @@ COST_CENTER = "Construcción Estación Nueva Distrito 3 - CISE"
 DEPARTMENT = "Maquinaria y Equipos - CISE"
 MATERIAL_WAREHOUSE = "Bodega de Obra Estación Nueva Distrito 3 - CISE"
 TOOLS_WAREHOUSE = "Almacén de Herramientas - CISE"
-STOCK_ACCOUNT = "Inventario de Materiales y Herramientas - CISE"
-STOCK_ADJUSTMENT_ACCOUNT = "Ajuste de Inventarios - CISE"
-GOODS_EXPENSE_ACCOUNT = "Costo de Bienes - CISE"
-SERVICE_EXPENSE_ACCOUNT = "Costo de Servicios - CISE"
+STOCK_ACCOUNT = "1134 - Otros inventarios - CISE"
+STOCK_ADJUSTMENT_ACCOUNT = "511098 - Ajuste de Inventarios - CISE"
+GOODS_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CISE"
+SERVICE_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CISE"
+ACCUMULATED_DEPRECIATION_OTHER = "1390 - Otros Activos fijos - CISE"
+DEPRECIATION_EXPENSE_OTHER = "511086 - Otros activos fijos - CISE"
 TAX_TEMPLATE = "Nicaragua Tax - CISE"
 OPENING_STOCK_REMARK = "CISE-DEMO-STOCK-OPENING-2026"
 
@@ -159,14 +161,14 @@ PURCHASE_ORDERS = (
 
 
 ASSET_ACCOUNT_TYPES = {
-    "Maquinaria Industrial - CISE": "Fixed Asset",
-    "Parque Vehicular - CISE": "Fixed Asset",
-    "Depresiacion Acumulada - CISE": "Accumulated Depreciation",
+    "1260 - Maquinaria - CISE": "Fixed Asset",
+    "1240 - Equipo Transporte - CISE": "Fixed Asset",
+    ACCUMULATED_DEPRECIATION_OTHER: "Accumulated Depreciation",
 }
 ASSET_CATEGORIES = (
-    ("Vehículos y Transporte", "Parque Vehicular - CISE", 60),
-    ("Maquinaria Pesada", "Maquinaria Industrial - CISE", 96),
-    ("Equipos de Compactación", "Equipos Menores Capitalizables - CISE", 48),
+    ("Vehículos y Transporte", "1240 - Equipo Transporte - CISE", "1340 - Equipo Transporte - CISE", "511083 - Equipo Rodante - CISE", 60),
+    ("Maquinaria Pesada", "1260 - Maquinaria - CISE", "1360 - Maquinaria - CISE", "511085 - Maquinaria - CISE", 96),
+    ("Equipos de Compactación", "1290 - Otros Activos fijos - CISE", ACCUMULATED_DEPRECIATION_OTHER, DEPRECIATION_EXPENSE_OTHER, 48),
 )
 ASSET_ITEMS = (
     ("ACT-VEH-001", "Camioneta pickup 4x4", "Vehículos", "Vehículos y Transporte"),
@@ -198,16 +200,19 @@ def _validate_prerequisites():
         "Department": {DEPARTMENT},
         "Warehouse": {MATERIAL_WAREHOUSE, TOOLS_WAREHOUSE},
         "Account": {
+            STOCK_ACCOUNT,
             STOCK_ADJUSTMENT_ACCOUNT,
             GOODS_EXPENSE_ACCOUNT,
             SERVICE_EXPENSE_ACCOUNT,
-            "Inventarios - CISE",
-            "Todos los Almacenes - CISE",
-            "Propiedad Planta y Equipo - CISE",
-            "Maquinaria Industrial - CISE",
-            "Parque Vehicular - CISE",
-            "Depresiacion Acumulada - CISE",
-            "Gastopor Depreciacion - CISE",
+            "1240 - Equipo Transporte - CISE",
+            "1260 - Maquinaria - CISE",
+            "1290 - Otros Activos fijos - CISE",
+            "1340 - Equipo Transporte - CISE",
+            "1360 - Maquinaria - CISE",
+            ACCUMULATED_DEPRECIATION_OTHER,
+            "511083 - Equipo Rodante - CISE",
+            "511085 - Maquinaria - CISE",
+            DEPRECIATION_EXPENSE_OTHER,
         },
         "Purchase Taxes and Charges Template": {TAX_TEMPLATE},
         "Tax Category": {"IVA"},
@@ -299,11 +304,10 @@ def _normalize_asset_account(name, expected_type):
 
 
 def _configure_inventory_account():
-    status = _ensure_account(
-        "Inventario de Materiales y Herramientas",
-        "Todos los Almacenes - CISE",
-        "Stock",
-    )
+    account = frappe.get_doc("Account", STOCK_ACCOUNT)
+    if account.company != COMPANY or account.is_group or account.account_type != "Stock":
+        frappe.throw(f"La cuenta {STOCK_ACCOUNT} no es una cuenta de inventario utilizable.")
+    status = "existing"
     company = frappe.get_doc("Company", COMPANY)
     if company.default_inventory_account not in (None, "", STOCK_ACCOUNT):
         frappe.throw(f"La empresa ya usa otra cuenta de inventario: {company.default_inventory_account}.")
@@ -314,7 +318,7 @@ def _configure_inventory_account():
     return status
 
 
-def _ensure_asset_category(name, fixed_asset_account, periods):
+def _ensure_asset_category(name, fixed_asset_account, accumulated_depreciation_account, depreciation_expense_account, periods):
     if frappe.db.exists("Asset Category", name):
         doc = frappe.get_doc("Asset Category", name)
         accounts = [row for row in doc.accounts if row.company_name == COMPANY]
@@ -322,8 +326,8 @@ def _ensure_asset_category(name, fixed_asset_account, periods):
         if (
             len(accounts) != 1
             or accounts[0].fixed_asset_account != fixed_asset_account
-            or accounts[0].accumulated_depreciation_account != "Depresiacion Acumulada - CISE"
-            or accounts[0].depreciation_expense_account != "Gastopor Depreciacion - CISE"
+            or accounts[0].accumulated_depreciation_account != accumulated_depreciation_account
+            or accounts[0].depreciation_expense_account != depreciation_expense_account
             or len(books) != 1
             or books[0].depreciation_method != "Straight Line"
             or books[0].total_number_of_depreciations != periods
@@ -343,8 +347,8 @@ def _ensure_asset_category(name, fixed_asset_account, periods):
                 {
                     "company_name": COMPANY,
                     "fixed_asset_account": fixed_asset_account,
-                    "accumulated_depreciation_account": "Depresiacion Acumulada - CISE",
-                    "depreciation_expense_account": "Gastopor Depreciacion - CISE",
+                    "accumulated_depreciation_account": accumulated_depreciation_account,
+                    "depreciation_expense_account": depreciation_expense_account,
                 }
             ],
             "finance_books": [
@@ -616,14 +620,8 @@ def configure():
     result["accounts"][STOCK_ACCOUNT] = _configure_inventory_account()
     for name, account_type in ASSET_ACCOUNT_TYPES.items():
         result["accounts"][name] = _normalize_asset_account(name, account_type)
-    result["accounts"]["Equipos Menores Capitalizables - CISE"] = _ensure_account(
-        "Equipos Menores Capitalizables",
-        "Propiedad Planta y Equipo - CISE",
-        "Fixed Asset",
-    )
-
-    for name, account, periods in ASSET_CATEGORIES:
-        result["asset_categories"][name] = _ensure_asset_category(name, account, periods)
+    for name, account, accumulated, expense, periods in ASSET_CATEGORIES:
+        result["asset_categories"][name] = _ensure_asset_category(name, account, accumulated, expense, periods)
     for code, name, group, category in ASSET_ITEMS:
         result["asset_items"][code] = _ensure_asset_item(code, name, group, category)
 

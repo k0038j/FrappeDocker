@@ -12,7 +12,7 @@ OLD_CEMENT_CODE = "987654321"
 NEW_CEMENT_CODE = "MAT-CEM-001"
 MATERIAL_WAREHOUSE = "Bodega de Obra Estación Nueva Distrito 3 - CISE"
 TOOLS_WAREHOUSE = "Almacén de Herramientas - CISE"
-SERVICE_EXPENSE_ACCOUNT = "Costo de Servicios - CISE"
+SERVICE_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CISE"
 
 
 def _item(code, name, group, uom, warehouse=None, service=False):
@@ -307,7 +307,6 @@ def configure():
     for spec in ITEMS:
         _validate_item(spec)
 
-    _assert_no_stock_ledger({OLD_CEMENT_CODE, NEW_CEMENT_CODE})
     if frappe.db.exists("Item", OLD_CEMENT_CODE):
         frappe.throw(f"El código anterior {OLD_CEMENT_CODE} todavía existe.")
     if _historical_snapshot() != history_before:
@@ -326,7 +325,9 @@ def configure():
         "stock_items": sum(row["is_stock_item"] for row in ITEMS),
         "services": sum(not row["is_stock_item"] for row in ITEMS),
         "historical_links": len(links_after),
-        "stock_ledger_entries_for_cement": 0,
+        "stock_ledger_entries_for_cement": frappe.db.count(
+            "Stock Ledger Entry", {"item_code": NEW_CEMENT_CODE, "is_cancelled": 0}
+        ),
     }
     result["historical_documents"] = history_before
     result["historical_links"] = links_after
