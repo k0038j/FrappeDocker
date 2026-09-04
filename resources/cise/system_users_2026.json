@@ -1,0 +1,51 @@
+{
+  "company": "CYCE, S.A.",
+  "source": "Clasificación definitiva del personal y tabla Usuario de Sistema",
+  "send_welcome_email": false,
+  "users": [
+    {
+      "employee": "HR-EMP-00002",
+      "source_name": "Augusto García",
+      "email": "augusto.garcia@cise.com",
+      "roles": ["Employee", "Employee Self Service", "Analytics"]
+    },
+    {
+      "employee": "HR-EMP-00001",
+      "source_name": "María Andrade",
+      "email": "nelly@cise.com",
+      "roles": [],
+      "existing_user": true,
+      "preserve_existing_roles": true
+    },
+    {
+      "employee": "HR-EMP-00003",
+      "source_name": "Marbel Canales",
+      "email": "marbel.canales@cise.com",
+      "roles": ["Employee", "Employee Self Service", "Quality Manager", "Projects User"]
+    },
+    {
+      "employee": "HR-EMP-00004",
+      "source_name": "María Centeno",
+      "email": "maria.centeno@cise.com",
+      "roles": ["Employee", "Employee Self Service", "Purchase User"]
+    },
+    {
+      "employee": "HR-EMP-00005",
+      "source_name": "Anshley Palacios",
+      "email": "anshley.palacios@cise.com",
+      "roles": ["Employee", "Employee Self Service", "Accounts User"]
+    },
+    {
+      "employee": "HR-EMP-00012",
+      "source_name": "Junieth Luna",
+      "email": "junieth.luna@cise.com",
+      "roles": ["Employee", "Employee Self Service", "Projects User"]
+    },
+    {
+      "employee": "HR-EMP-00013",
+      "source_name": "Ingrid Paz",
+      "email": "ingrid.paz@cise.com",
+      "roles": ["Employee", "Employee Self Service", "Projects User"]
+    }
+  ]
+}
