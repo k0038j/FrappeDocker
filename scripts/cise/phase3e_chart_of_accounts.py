@@ -20,7 +20,7 @@ from frappe.utils import cint, flt
 
 
 COMPANY = "CYCE, S.A."
-ABBR = "CISE"
+ABBR = "CYCE"
 CATALOG_PATH = Path(__file__).with_name("phase3e_chart_of_accounts.json")
 
 LEGACY_GROUPS = {
@@ -68,7 +68,7 @@ def _load_catalog():
         frappe.throw(f"No se encontró el catálogo técnico: {CATALOG_PATH}")
     payload = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
     if payload.get("company") != COMPANY or payload.get("abbr") != ABBR:
-        frappe.throw("El catálogo técnico no corresponde a CYCE, S.A. / CISE.")
+        frappe.throw("El catálogo técnico no corresponde a CYCE, S.A. / CYCE.")
     accounts = payload.get("accounts") or []
     numbers = [row["account_number"] for row in accounts]
     duplicates = sorted(number for number, count in Counter(numbers).items() if count > 1)
@@ -92,7 +92,7 @@ def _roots():
     roots = {row.root_type: row.name for row in rows}
     missing = sorted(set(LEGACY_GROUPS) - set(roots))
     if missing:
-        frappe.throw(f"Faltan cuentas raíz de CISE: {', '.join(missing)}")
+        frappe.throw(f"Faltan cuentas raíz de CYCE: {', '.join(missing)}")
     return roots
 
 
@@ -188,7 +188,7 @@ def _ensure_account(spec, roots, by_number):
         limit_page_length=2,
     )
     if len(matches) > 1:
-        frappe.throw(f"Existe más de una cuenta CISE con código {number}.")
+        frappe.throw(f"Existe más de una cuenta CYCE con código {number}.")
     parent = _resolve_parent(spec["parent"], roots, by_number)
     expected = {
         "account_name": spec["account_name"],
@@ -365,7 +365,7 @@ def _update_asset_categories(by_number):
         doc = frappe.get_doc("Asset Category", category)
         rows = [row for row in doc.accounts if row.company_name == COMPANY]
         if len(rows) != 1:
-            frappe.throw(f"{category} debe tener exactamente una configuración contable para CISE.")
+            frappe.throw(f"{category} debe tener exactamente una configuración contable para CYCE.")
         row = rows[0]
         expected = tuple(by_number[number] for number in numbers)
         actual = (
@@ -404,7 +404,7 @@ def _tree_issues():
 def _validate(accounts, roots, by_number, gl_before=None):
     missing = [number for number, name in by_number.items() if not frappe.db.exists("Account", name)]
     if missing:
-        frappe.throw(f"No se crearon las cuentas CISE: {', '.join(missing)}")
+        frappe.throw(f"No se crearon las cuentas CYCE: {', '.join(missing)}")
     issues = _tree_issues()
     if issues:
         frappe.throw("El árbol contable quedó inconsistente: " + "; ".join(issues[:10]))

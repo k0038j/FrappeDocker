@@ -8,7 +8,7 @@ import frappe
 
 
 COMPANY = "CYCE, S.A."
-ABBR = "CISE"
+ABBR = "CYCE"
 
 SUPPLIER_GROUPS = (
     ("Materiales de Construcción", "All Supplier Groups", 0),
@@ -59,15 +59,15 @@ WAREHOUSES = (
 )
 
 COST_CENTERS = (
-    ("Operaciones", "CISE - CISE", 1),
-    ("Construcción Estación Nueva Distrito 3", "Operaciones - CISE", 0),
-    ("Consultoría Estudio de Suelos", "Operaciones - CISE", 0),
+    ("Operaciones", "CISE - CYCE", 1),
+    ("Construcción Estación Nueva Distrito 3", "Operaciones - CYCE", 0),
+    ("Consultoría Estudio de Suelos", "Operaciones - CYCE", 0),
 )
 
 PROJECT_COST_CENTERS = {
-    "Estación Nueva Distrito 3": "Construcción Estación Nueva Distrito 3 - CISE",
+    "Estación Nueva Distrito 3": "Construcción Estación Nueva Distrito 3 - CYCE",
     "Estudio de Suelos - Estación Nueva Distrito 3": (
-        "Consultoría Estudio de Suelos - CISE"
+        "Consultoría Estudio de Suelos - CYCE"
     ),
 }
 
@@ -184,7 +184,7 @@ def _ensure_warehouse(warehouse_name: str) -> str:
         doc = frappe.get_doc("Warehouse", full_name)
         expected = {
             "warehouse_name": warehouse_name,
-            "parent_warehouse": "Todos los almacenes - CISE",
+            "parent_warehouse": "Todos los almacenes - CYCE",
             "company": COMPANY,
             "is_group": 0,
             "disabled": 0,
@@ -197,7 +197,7 @@ def _ensure_warehouse(warehouse_name: str) -> str:
         {
             "doctype": "Warehouse",
             "warehouse_name": warehouse_name,
-            "parent_warehouse": "Todos los almacenes - CISE",
+            "parent_warehouse": "Todos los almacenes - CYCE",
             "company": COMPANY,
             "is_group": 0,
             "disabled": 0,

@@ -11,17 +11,17 @@ from frappe.utils import flt
 
 COMPANY = "CYCE, S.A."
 PROJECT = "PROJ-0001"
-COST_CENTER = "Construcción Estación Nueva Distrito 3 - CISE"
-DEPARTMENT = "Maquinaria y Equipos - CISE"
-MATERIAL_WAREHOUSE = "Bodega de Obra Estación Nueva Distrito 3 - CISE"
-TOOLS_WAREHOUSE = "Almacén de Herramientas - CISE"
-STOCK_ACCOUNT = "1134 - Otros inventarios - CISE"
-STOCK_ADJUSTMENT_ACCOUNT = "511098 - Ajuste de Inventarios - CISE"
-GOODS_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CISE"
-SERVICE_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CISE"
-ACCUMULATED_DEPRECIATION_OTHER = "1390 - Otros Activos fijos - CISE"
-DEPRECIATION_EXPENSE_OTHER = "511086 - Otros activos fijos - CISE"
-TAX_TEMPLATE = "Nicaragua Tax - CISE"
+COST_CENTER = "Construcción Estación Nueva Distrito 3 - CYCE"
+DEPARTMENT = "Maquinaria y Equipos - CYCE"
+MATERIAL_WAREHOUSE = "Bodega de Obra Estación Nueva Distrito 3 - CYCE"
+TOOLS_WAREHOUSE = "Almacén de Herramientas - CYCE"
+STOCK_ACCOUNT = "1134 - Otros inventarios - CYCE"
+STOCK_ADJUSTMENT_ACCOUNT = "511098 - Ajuste de Inventarios - CYCE"
+GOODS_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CYCE"
+SERVICE_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CYCE"
+ACCUMULATED_DEPRECIATION_OTHER = "1390 - Otros Activos fijos - CYCE"
+DEPRECIATION_EXPENSE_OTHER = "511086 - Otros activos fijos - CYCE"
+TAX_TEMPLATE = "Nicaragua Tax - CYCE"
 OPENING_STOCK_REMARK = "CISE-DEMO-STOCK-OPENING-2026"
 
 
@@ -161,14 +161,14 @@ PURCHASE_ORDERS = (
 
 
 ASSET_ACCOUNT_TYPES = {
-    "1260 - Maquinaria - CISE": "Fixed Asset",
-    "1240 - Equipo Transporte - CISE": "Fixed Asset",
+    "1260 - Maquinaria - CYCE": "Fixed Asset",
+    "1240 - Equipo Transporte - CYCE": "Fixed Asset",
     ACCUMULATED_DEPRECIATION_OTHER: "Accumulated Depreciation",
 }
 ASSET_CATEGORIES = (
-    ("Vehículos y Transporte", "1240 - Equipo Transporte - CISE", "1340 - Equipo Transporte - CISE", "511083 - Equipo Rodante - CISE", 60),
-    ("Maquinaria Pesada", "1260 - Maquinaria - CISE", "1360 - Maquinaria - CISE", "511085 - Maquinaria - CISE", 96),
-    ("Equipos de Compactación", "1290 - Otros Activos fijos - CISE", ACCUMULATED_DEPRECIATION_OTHER, DEPRECIATION_EXPENSE_OTHER, 48),
+    ("Vehículos y Transporte", "1240 - Equipo Transporte - CYCE", "1340 - Equipo Transporte - CYCE", "511083 - Equipo Rodante - CYCE", 60),
+    ("Maquinaria Pesada", "1260 - Maquinaria - CYCE", "1360 - Maquinaria - CYCE", "511085 - Maquinaria - CYCE", 96),
+    ("Equipos de Compactación", "1290 - Otros Activos fijos - CYCE", ACCUMULATED_DEPRECIATION_OTHER, DEPRECIATION_EXPENSE_OTHER, 48),
 )
 ASSET_ITEMS = (
     ("ACT-VEH-001", "Camioneta pickup 4x4", "Vehículos", "Vehículos y Transporte"),
@@ -204,14 +204,14 @@ def _validate_prerequisites():
             STOCK_ADJUSTMENT_ACCOUNT,
             GOODS_EXPENSE_ACCOUNT,
             SERVICE_EXPENSE_ACCOUNT,
-            "1240 - Equipo Transporte - CISE",
-            "1260 - Maquinaria - CISE",
-            "1290 - Otros Activos fijos - CISE",
-            "1340 - Equipo Transporte - CISE",
-            "1360 - Maquinaria - CISE",
+            "1240 - Equipo Transporte - CYCE",
+            "1260 - Maquinaria - CYCE",
+            "1290 - Otros Activos fijos - CYCE",
+            "1340 - Equipo Transporte - CYCE",
+            "1360 - Maquinaria - CYCE",
             ACCUMULATED_DEPRECIATION_OTHER,
-            "511083 - Equipo Rodante - CISE",
-            "511085 - Maquinaria - CISE",
+            "511083 - Equipo Rodante - CYCE",
+            "511085 - Maquinaria - CYCE",
             DEPRECIATION_EXPENSE_OTHER,
         },
         "Purchase Taxes and Charges Template": {TAX_TEMPLATE},
@@ -256,7 +256,7 @@ def _ensure_supplier(name, group):
 
 
 def _ensure_account(account_name, parent, account_type):
-    full_name = f"{account_name} - CISE"
+    full_name = f"{account_name} - CYCE"
     if frappe.db.exists("Account", full_name):
         doc = frappe.get_doc("Account", full_name)
         expected = {

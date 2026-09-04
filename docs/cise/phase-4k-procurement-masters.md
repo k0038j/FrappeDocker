@@ -26,16 +26,16 @@ subgrupos.
 
 ## Almacenes nuevos
 
-- Bodega Central de Materiales - CISE
-- Bodega de Obra Estación Nueva Distrito 3 - CISE
-- Almacén de Herramientas - CISE
-- Patio de Maquinaria y Equipos - CISE
+- Bodega Central de Materiales - CYCE
+- Bodega de Obra Estación Nueva Distrito 3 - CYCE
+- Almacén de Herramientas - CYCE
+- Patio de Maquinaria y Equipos - CYCE
 
 ## Centros de costo nuevos
 
-- Operaciones - CISE
-  - Construcción Estación Nueva Distrito 3 - CISE
-  - Consultoría Estudio de Suelos - CISE
+- Operaciones - CYCE
+  - Construcción Estación Nueva Distrito 3 - CYCE
+  - Consultoría Estudio de Suelos - CYCE
 
 ## Exclusiones
 

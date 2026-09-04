@@ -10,9 +10,9 @@ import frappe
 COMPANY = "CYCE, S.A."
 OLD_CEMENT_CODE = "987654321"
 NEW_CEMENT_CODE = "MAT-CEM-001"
-MATERIAL_WAREHOUSE = "Bodega de Obra Estación Nueva Distrito 3 - CISE"
-TOOLS_WAREHOUSE = "Almacén de Herramientas - CISE"
-SERVICE_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CISE"
+MATERIAL_WAREHOUSE = "Bodega de Obra Estación Nueva Distrito 3 - CYCE"
+TOOLS_WAREHOUSE = "Almacén de Herramientas - CYCE"
+SERVICE_EXPENSE_ACCOUNT = "4410 - Costo de Ventas por Prestacion de servicios - CYCE"
 
 
 def _item(code, name, group, uom, warehouse=None, service=False):

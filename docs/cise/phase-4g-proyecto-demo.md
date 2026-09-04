@@ -6,7 +6,7 @@
 serie estándar `PROJ-.####`; ningún script depende del valor `PROJ-0001`.
 
 Los datos funcionales coinciden con la ficha aprobada, excepto por el
-departamento heredado `Ejecución Comercial - CISE`.
+departamento heredado `Ejecución Comercial - CYCE`.
 
 El proyecto conserva actividad histórica:
 
@@ -21,8 +21,8 @@ Por trazabilidad no se elimina ni se duplica.
 ## Normalización aprobada
 
 El proyecto se localiza por `project_name` y se asigna a la unidad operativa
-`Gestión de Proyectos de Construcción - CISE`. No se utiliza el nodo agrupador
-`Dirección de Operaciones - Construcción - CISE`.
+`Gestión de Proyectos de Construcción - CYCE`. No se utiliza el nodo agrupador
+`Dirección de Operaciones - Construcción - CYCE`.
 
 No se modifican estado, prioridad, fechas, costo estimado, tareas, avance ni
 documentos contables.
@@ -43,7 +43,7 @@ Ficha aprobada:
 - Empresa: `CYCE, S.A.`
 - Tipo: `Verticales`
 - Línea de servicio: `Estudios de Suelos`
-- Departamento: `Coordinación de Consultoría - CISE`
+- Departamento: `Coordinación de Consultoría - CYCE`
 - Estado: `Open`
 - Prioridad: `High`
 - Activo: `Yes`

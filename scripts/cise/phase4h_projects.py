@@ -9,15 +9,15 @@ from frappe.utils import flt, getdate
 
 
 CONSTRUCTION_PROJECT_NAME = "Estación Nueva Distrito 3"
-EXPECTED_SOURCE_DEPARTMENT = "Ejecución Comercial - CISE"
-CONSTRUCTION_DEPARTMENT = "Gestión de Proyectos de Construcción - CISE"
+EXPECTED_SOURCE_DEPARTMENT = "Ejecución Comercial - CYCE"
+CONSTRUCTION_DEPARTMENT = "Gestión de Proyectos de Construcción - CYCE"
 
 CONSULTING_PROJECT = {
     "project_name": "Estudio de Suelos - Estación Nueva Distrito 3",
     "company": "CYCE, S.A.",
     "project_type": "Verticales",
     "custom_linea_de_servicio": "Estudios de Suelos",
-    "department": "Coordinación de Consultoría - CISE",
+    "department": "Coordinación de Consultoría - CYCE",
     "status": "Open",
     "priority": "High",
     "is_active": "Yes",

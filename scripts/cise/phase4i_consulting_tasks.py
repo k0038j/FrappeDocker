@@ -105,7 +105,7 @@ def _ensure_operational_user() -> tuple[object, str]:
 def _configure_project(project) -> str:
     if project.company != "CYCE, S.A.":
         frappe.throw(f"El proyecto pertenece a {project.company}, no a CYCE, S.A.")
-    if project.department != "Coordinación de Consultoría - CISE":
+    if project.department != "Coordinación de Consultoría - CYCE":
         frappe.throw(f"Departamento inesperado: {project.department}.")
     if project.custom_linea_de_servicio != "Estudios de Suelos":
         frappe.throw(

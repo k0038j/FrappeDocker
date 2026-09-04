@@ -11,7 +11,7 @@ Aplicado y validado en el site `frontend` el 3 de septiembre de 2026.
 - 5 servicios no almacenables.
 - Materiales, consumibles y EPP con almacén predeterminado de obra.
 - Herramientas con almacén predeterminado de herramientas.
-- Servicios con la cuenta de gasto `Costo de Servicios - CISE`.
+- Servicios con la cuenta de gasto `Costo de Servicios - CYCE`.
 - Sin lotes, números de serie ni activos fijos en este bloque.
 
 ## Normalización del cemento histórico
@@ -40,7 +40,7 @@ Respaldo completo `20260903_152532` en
 - Se crearon los otros 48 artículos aprobados.
 - El catálogo contiene exactamente 49 registros: 44 físicos y 5 servicios.
 - Los 44 artículos físicos tienen el almacén aprobado y siguen FIFO global.
-- Los 5 servicios no manejan inventario y usan `Costo de Servicios - CISE`.
+- Los 5 servicios no manejan inventario y usan `Costo de Servicios - CYCE`.
 - El cemento conserva `Unit` como unidad de inventario y usa `Saco` 1:1 para compra.
 - No existen movimientos de inventario históricos del cemento.
 - `PUR-ORD-2026-00001` permanece enviada, por C$ 172,500.00 y pendiente de recibir.

@@ -14,7 +14,7 @@ Este bloque completa los elementos que no debían quedar pendientes después de
 
 ## Criterio contable
 
-La cuenta nueva `Inventario de Materiales y Herramientas - CISE` pertenece al
+La cuenta nueva `Inventario de Materiales y Herramientas - CYCE` pertenece al
 grupo corriente de Inventarios y se configura como cuenta de inventario de la
 empresa. La entrada inicial usa como contrapartida la cuenta estándar de ajuste
 de inventarios.
@@ -30,7 +30,7 @@ adquisición históricas.
 ## Compras del demo
 
 Las órdenes usan IVA, el proyecto `PROJ-0001` y el centro de costo
-`Construcción Estación Nueva Distrito 3 - CISE`. Cuatro se envían y una queda en
+`Construcción Estación Nueva Distrito 3 - CYCE`. Cuatro se envían y una queda en
 borrador para representar un flujo pendiente de aprobación.
 
 ## Seguridad e idempotencia
