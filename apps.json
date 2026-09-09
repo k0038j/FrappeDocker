@@ -1,10 +1,10 @@
 [
   {
-    "url": "https://github.com/frappe/erpnext.git",
-    "branch": "v16.30.0"
+    "url": "https://github.com/k0038j/ERPWeb.git",
+    "branch": "version-16-cise"
   },
   {
-    "url": "https://github.com/frappe/hrms.git",
-    "branch": "v16.17.1"
+    "url": "https://github.com/k0038j/hrms.git",
+    "branch": "version-16-cise"
   }
 ]

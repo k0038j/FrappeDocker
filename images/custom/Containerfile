@@ -139,10 +139,16 @@ ARG HRMS_EXPECTED_SHA=""
 ARG CACHE_BUST=""
 
 RUN --mount=type=secret,id=apps_json,target=/opt/frappe/apps.json,uid=1000,gid=1000 \
+  --mount=type=secret,id=github_token,target=/run/secrets/github_token,uid=1000,gid=1000,required=false \
   : "${CACHE_BUST}" && \
   export APP_INSTALL_ARGS="" && \
   if [ -f /opt/frappe/apps.json ] && [ -s /opt/frappe/apps.json ]; then \
     export APP_INSTALL_ARGS="--apps_path=/opt/frappe/apps.json"; \
+  fi && \
+  if [ -s /run/secrets/github_token ]; then \
+    github_token="$(cat /run/secrets/github_token)"; \
+    github_auth_section="url.https://x-access-token:${github_token}@github.com/"; \
+    git config --global "${github_auth_section}.insteadOf" "https://github.com/"; \
   fi && \
   bench init ${APP_INSTALL_ARGS}\
     --frappe-branch=${FRAPPE_BRANCH} \
@@ -152,6 +158,9 @@ RUN --mount=type=secret,id=apps_json,target=/opt/frappe/apps.json,uid=1000,gid=1
     --skip-redis-config-generation \
     --verbose \
     /home/frappe/frappe-bench && \
+  if [ -n "${github_auth_section:-}" ]; then \
+    git config --global --remove-section "${github_auth_section}"; \
+  fi && \
   cd /home/frappe/frappe-bench && \
   if [ -n "${FRAPPE_EXPECTED_SHA}" ]; then \
     actual_sha="$(git -C apps/frappe rev-parse HEAD)"; \
