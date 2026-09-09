@@ -155,7 +155,9 @@ services:
       - sites:/home/frappe/frappe-bench/sites
       - logs:/home/frappe/frappe-bench/logs
     ports:
-      - "${HTTP_PUBLISH_PORT:-8080}:8080"
+      # Keep the origin private. Remote web access must go through the
+      # authenticated Cloudflare Tunnel running on this host.
+      - "127.0.0.1:${HTTP_PUBLISH_PORT:-8080}:8080"
     healthcheck:
       test:
         - CMD-SHELL
