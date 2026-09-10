@@ -26,13 +26,12 @@ target "cise" {
     FRAPPE_PATH          = "https://github.com/frappe/frappe.git"
     FRAPPE_BRANCH        = "v16.29.0"
     FRAPPE_EXPECTED_SHA  = "06613fc60b44d5736007ae3107cdab029b2ae045"
-    ERPNEXT_EXPECTED_SHA = "073a8ba7086e541f1f617f5b3305cedcdd7da804"
-    HRMS_EXPECTED_SHA    = "8dce7b0b83bcd31db8b55016bf8a827512fa32a9"
+    ERPNEXT_EXPECTED_SHA = "8378b6e203841c056925420cc44e6d631c915cf1"
+    HRMS_EXPECTED_SHA    = "e1481b5cd038657d82357d91a2d81cc84c707016"
   }
 
   secret = [
     "id=apps_json,src=apps.json",
     "id=ca_cert,src=.docker-proxy-ca.crt",
-    "id=github_token,env=CISE_GITHUB_TOKEN",
   ]
 }

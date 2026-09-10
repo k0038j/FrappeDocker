@@ -74,7 +74,6 @@ services:
       - -c
     command:
       - |
-        set -euo pipefail
         wait-for-it -t 120 db:3306;
         wait-for-it -t 120 redis-cache:6379;
         wait-for-it -t 120 redis-queue:6379;
@@ -88,7 +87,7 @@ services:
             --db-root-password="$$DB_PASSWORD" \
             --install-app erpnext \
             --install-app hrms \
-            --set-default;
+            --set-default "$$SITE_NAME";
         fi
 
         installed_apps="$$(bench --site "$$SITE_NAME" list-apps --format json)";
