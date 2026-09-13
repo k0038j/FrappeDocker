@@ -1,0 +1,79 @@
+{
+ "actions": [],
+ "creation": "2026-09-12 17:50:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ajuste",
+  "viatico_origen",
+  "fecha_origen",
+  "saldo_antes",
+  "monto_aplicado",
+  "saldo_despues"
+ ],
+ "fields": [
+  {
+   "fieldname": "ajuste",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Ajuste",
+   "options": "Viatico Ajuste",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "viatico_origen",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Viático de origen",
+   "options": "Viatico",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "fecha_origen",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Fecha de origen",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "saldo_antes",
+   "fieldtype": "Currency",
+   "label": "Saldo antes",
+   "options": "parent.moneda",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "monto_aplicado",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Monto aplicado",
+   "options": "parent.moneda",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "saldo_despues",
+   "fieldtype": "Currency",
+   "label": "Saldo después",
+   "options": "parent.moneda",
+   "read_only": 1,
+   "reqd": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2026-09-12 17:50:00.000000",
+ "modified_by": "Administrator",
+ "module": "CYCE Viaticos",
+ "name": "Viatico Aplicacion Ajuste",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "idx",
+ "sort_order": "ASC",
+ "states": []
+}

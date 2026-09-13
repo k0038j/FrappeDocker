@@ -1,0 +1,1 @@
+"""Viatico Dia child DocType."""

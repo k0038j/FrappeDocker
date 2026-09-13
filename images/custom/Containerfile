@@ -183,6 +183,11 @@ RUN set -eux; \
   grep -q '/desk/hr-setup' apps/hrms/hrms/hooks.py; \
   grep -q '/desk/hr-setup' apps/hrms/hrms/desktop_icon/frappe_hr.json
 
+# Install the in-house viatic control app from the reproducible build context.
+COPY --chown=frappe:frappe custom_apps/cyce_viaticos /home/frappe/frappe-bench/apps/cyce_viaticos
+RUN cd /home/frappe/frappe-bench && \
+  ./env/bin/pip install --no-cache-dir --editable apps/cyce_viaticos
+
 FROM base AS backend
 
 USER frappe

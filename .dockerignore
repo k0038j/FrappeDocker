@@ -2,3 +2,5 @@ README.md
 LICENSE
 .gitignore
 compose*.yaml
+**/__pycache__/
+**/*.pyc

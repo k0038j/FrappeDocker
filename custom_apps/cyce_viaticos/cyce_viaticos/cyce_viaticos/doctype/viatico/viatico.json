@@ -1,0 +1,323 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "naming_series:",
+ "creation": "2026-09-12 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "identificacion_section",
+  "naming_series",
+  "empleado",
+  "nombre_empleado",
+  "cargo",
+  "column_break_identificacion",
+  "empresa",
+  "tipo_viatico",
+  "aprobador",
+  "estado",
+  "periodo_section",
+  "fecha_desde",
+  "fecha_hasta",
+  "column_break_periodo",
+  "moneda",
+  "detalle_section",
+  "dias",
+  "ajustes_section",
+  "aplicaciones_ajuste",
+  "integracion_contable_section",
+  "estado_integracion_contable",
+  "column_break_integracion_contable",
+  "anticipo_empleado",
+  "solicitud_gasto",
+  "totales_section",
+  "monto_total",
+  "ajuste_anterior_total",
+  "column_break_totales",
+  "monto_neto",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "identificacion_section",
+   "fieldtype": "Section Break",
+   "label": "Identificación"
+  },
+  {
+   "default": "VIA-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Serie",
+   "options": "VIA-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "empleado",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Empleado",
+   "options": "Employee",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "empleado.employee_name",
+   "fieldname": "nombre_empleado",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Nombre del empleado",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "empleado.designation",
+   "fieldname": "cargo",
+   "fieldtype": "Link",
+   "label": "Cargo",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_identificacion",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "empleado.company",
+   "fieldname": "empresa",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Empresa",
+   "options": "Company",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "tipo_viatico",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tipo de viático",
+   "options": "Adelantado\nReposición",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "nelly@cise.com",
+   "fieldname": "aprobador",
+   "fieldtype": "Link",
+   "label": "Aprobador",
+   "options": "User",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Borrador",
+   "fieldname": "estado",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Estado",
+   "options": "Borrador\nPendiente de aprobación\nAprobado\nRechazado\nConciliado\nCancelado",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "periodo_section",
+   "fieldtype": "Section Break",
+   "label": "Período"
+  },
+  {
+   "fieldname": "fecha_desde",
+   "fieldtype": "Date",
+   "in_standard_filter": 1,
+   "label": "Fecha desde",
+   "read_only": 1
+  },
+  {
+   "fieldname": "fecha_hasta",
+   "fieldtype": "Date",
+   "in_standard_filter": 1,
+   "label": "Fecha hasta",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_periodo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "NIO",
+   "fieldname": "moneda",
+   "fieldtype": "Link",
+   "label": "Moneda",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "detalle_section",
+   "fieldtype": "Section Break",
+   "label": "Asignación diaria"
+  },
+  {
+   "fieldname": "dias",
+   "fieldtype": "Table",
+   "label": "Días de viático",
+   "options": "Viatico Dia"
+  },
+  {
+   "fieldname": "ajustes_section",
+   "fieldtype": "Section Break",
+   "label": "Ajustes de períodos anteriores"
+  },
+  {
+   "fieldname": "aplicaciones_ajuste",
+   "fieldtype": "Table",
+   "label": "Aplicaciones de ajustes",
+   "options": "Viatico Aplicacion Ajuste",
+   "read_only": 1
+  },
+  {
+   "fieldname": "integracion_contable_section",
+   "fieldtype": "Section Break",
+   "label": "Integración contable"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Pendiente",
+   "fieldname": "estado_integracion_contable",
+   "fieldtype": "Select",
+   "label": "Estado de integración contable",
+   "options": "Pendiente\nGenerado\nNo requerido\nCancelado",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_integracion_contable",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "anticipo_empleado",
+   "fieldtype": "Link",
+   "label": "Anticipo de empleado",
+   "no_copy": 1,
+   "options": "Employee Advance",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "solicitud_gasto",
+   "fieldtype": "Link",
+   "label": "Solicitud de gasto",
+   "no_copy": 1,
+   "options": "Expense Claim",
+   "read_only": 1
+  },
+  {
+   "fieldname": "totales_section",
+   "fieldtype": "Section Break",
+   "label": "Totales"
+  },
+  {
+   "fieldname": "monto_total",
+   "fieldtype": "Currency",
+   "label": "Monto total",
+   "options": "moneda",
+   "read_only": 1
+  },
+  {
+   "fieldname": "ajuste_anterior_total",
+   "fieldtype": "Currency",
+   "label": "Ajuste de período anterior",
+   "options": "moneda",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_totales",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "monto_neto",
+   "fieldtype": "Currency",
+   "label": "Monto neto",
+   "options": "moneda",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Rectificación de",
+   "no_copy": 1,
+   "options": "Viatico",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-09-12 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "CYCE Viaticos",
+ "name": "Viatico",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Aprobador de Viaticos",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "nombre_empleado",
+ "track_changes": 1
+}

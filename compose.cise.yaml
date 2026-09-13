@@ -91,7 +91,7 @@ services:
         fi
 
         installed_apps="$$(bench --site "$$SITE_NAME" list-apps --format json)";
-        for app in erpnext hrms; do
+        for app in erpnext hrms cyce_viaticos; do
           if printf '%s' "$$installed_apps" | jq -e \
             --arg site "$$SITE_NAME" \
             --arg app "$$app" \

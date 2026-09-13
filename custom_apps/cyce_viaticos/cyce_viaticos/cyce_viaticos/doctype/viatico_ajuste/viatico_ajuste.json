@@ -1,0 +1,233 @@
+{
+ "actions": [],
+ "allow_import": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-09-12 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "identificacion_section",
+  "naming_series",
+  "empleado",
+  "empresa",
+  "column_break_identificacion",
+  "viatico_origen",
+  "detalle_origen",
+  "fecha_origen",
+  "asistencia",
+  "detalle_section",
+  "motivo",
+  "moneda",
+  "monto_original",
+  "monto_aplicado",
+  "column_break_montos",
+  "saldo_pendiente",
+  "estado",
+  "viatico_aplicado",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "identificacion_section",
+   "fieldtype": "Section Break",
+   "label": "Origen del ajuste"
+  },
+  {
+   "default": "VIA-AJ-.YYYY.-.#####",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Serie",
+   "options": "VIA-AJ-.YYYY.-.#####",
+   "reqd": 1
+  },
+  {
+   "fieldname": "empleado",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Empleado",
+   "options": "Employee",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "empleado.company",
+   "fieldname": "empresa",
+   "fieldtype": "Link",
+   "label": "Empresa",
+   "options": "Company",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_identificacion",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "viatico_origen",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Viático de origen",
+   "options": "Viatico",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "detalle_origen",
+   "fieldtype": "Data",
+   "label": "Detalle diario de origen",
+   "read_only": 1,
+   "reqd": 1,
+   "search_index": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "fecha_origen",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Fecha de origen",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "asistencia",
+   "fieldtype": "Link",
+   "label": "Asistencia relacionada",
+   "options": "Attendance",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "detalle_section",
+   "fieldtype": "Section Break",
+   "label": "Control del ajuste"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "motivo",
+   "fieldtype": "Small Text",
+   "label": "Motivo",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "default": "NIO",
+   "fieldname": "moneda",
+   "fieldtype": "Link",
+   "label": "Moneda",
+   "options": "Currency",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "monto_original",
+   "fieldtype": "Currency",
+   "label": "Monto original",
+   "options": "moneda",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "monto_aplicado",
+   "fieldtype": "Currency",
+   "label": "Monto aplicado",
+   "options": "moneda",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_montos",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "saldo_pendiente",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Saldo pendiente",
+   "options": "moneda",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Abierto",
+   "fieldname": "estado",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Estado",
+   "options": "Abierto\nParcialmente aplicado\nAplicado\nCancelado",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "viatico_aplicado",
+   "fieldtype": "Link",
+   "label": "Aplicado en viático",
+   "options": "Viatico",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Rectificación de",
+   "no_copy": 1,
+   "options": "Viatico Ajuste",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-09-12 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "CYCE Viaticos",
+ "name": "Viatico Ajuste",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager"
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Aprobador de Viaticos"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

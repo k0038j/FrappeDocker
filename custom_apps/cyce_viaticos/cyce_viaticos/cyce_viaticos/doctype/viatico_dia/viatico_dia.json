@@ -1,0 +1,142 @@
+{
+ "actions": [],
+ "creation": "2026-09-12 15:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fecha",
+  "monto",
+  "cargo",
+  "destino",
+  "proyecto",
+  "asistencia_section",
+  "asistencia",
+  "estado_asistencia",
+  "column_break_asistencia",
+  "elegible",
+  "motivo_no_elegible",
+  "ajuste_generado",
+  "ajuste_anterior_aplicado",
+  "monto_neto"
+ ],
+ "fields": [
+  {
+   "fieldname": "fecha",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Fecha",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "monto",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Monto",
+   "options": "parent.moneda",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cargo",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Cargo",
+   "options": "Designation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "destino",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Destino",
+   "reqd": 1
+  },
+  {
+   "fieldname": "proyecto",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Proyecto",
+   "options": "Project",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "asistencia_section",
+   "fieldtype": "Section Break",
+   "label": "Control de asistencia y ajuste"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "asistencia",
+   "fieldtype": "Link",
+   "label": "Asistencia",
+   "options": "Attendance",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "estado_asistencia",
+   "fieldtype": "Data",
+   "label": "Estado de asistencia",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_asistencia",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "elegible",
+   "fieldtype": "Check",
+   "label": "Elegible",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "motivo_no_elegible",
+   "fieldtype": "Small Text",
+   "label": "Motivo no elegible",
+   "read_only": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "ajuste_generado",
+   "fieldtype": "Link",
+   "label": "Ajuste generado",
+   "no_copy": 1,
+   "options": "Viatico Ajuste",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "ajuste_anterior_aplicado",
+   "fieldtype": "Currency",
+   "label": "Ajuste anterior aplicado",
+   "options": "parent.moneda",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "monto_neto",
+   "fieldtype": "Currency",
+   "label": "Monto neto",
+   "options": "parent.moneda",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "modified": "2026-09-12 15:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "CYCE Viaticos",
+ "name": "Viatico Dia",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "idx",
+ "sort_order": "ASC",
+ "states": []
+}
