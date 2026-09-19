@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "autoname": "field:nombre_plantilla",
+ "creation": "2026-09-13 10:30:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "nombre_plantilla",
+  "activa",
+  "empresa",
+  "column_break_1",
+  "tipo_viatico",
+  "moneda",
+  "valores_section",
+  "monto_diario",
+  "destino",
+  "column_break_2",
+  "proyecto",
+  "descripcion"
+ ],
+ "fields": [
+  {"fieldname":"nombre_plantilla","fieldtype":"Data","in_list_view":1,"label":"Nombre de plantilla","reqd":1,"unique":1},
+  {"default":"1","fieldname":"activa","fieldtype":"Check","in_list_view":1,"in_standard_filter":1,"label":"Activa"},
+  {"fieldname":"empresa","fieldtype":"Link","in_list_view":1,"in_standard_filter":1,"label":"Empresa","options":"Company","reqd":1},
+  {"fieldname":"column_break_1","fieldtype":"Column Break"},
+  {"default":"Adelantado","fieldname":"tipo_viatico","fieldtype":"Select","in_list_view":1,"label":"Tipo de viático","options":"Adelantado\nReposición","reqd":1},
+  {"default":"NIO","fieldname":"moneda","fieldtype":"Link","label":"Moneda","options":"Currency","reqd":1},
+  {"fieldname":"valores_section","fieldtype":"Section Break","label":"Valores predeterminados"},
+  {"fieldname":"monto_diario","fieldtype":"Currency","in_list_view":1,"label":"Monto diario","options":"moneda","reqd":1},
+  {"fieldname":"destino","fieldtype":"Data","label":"Destino","reqd":1},
+  {"fieldname":"column_break_2","fieldtype":"Column Break"},
+  {"fieldname":"proyecto","fieldtype":"Link","in_standard_filter":1,"label":"Proyecto","options":"Project","reqd":1},
+  {"fieldname":"descripcion","fieldtype":"Small Text","label":"Descripción"}
+ ],
+ "modified": "2026-09-13 10:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "CYCE Viaticos",
+ "name": "Plantilla Viatico",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"System Manager","share":1,"write":1},
+  {"create":1,"delete":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"HR Manager","share":1,"write":1},
+  {"create":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"HR User","share":1,"write":1},
+  {"create":1,"email":1,"export":1,"print":1,"read":1,"report":1,"role":"Aprobador de Viaticos","share":1,"write":1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "nombre_plantilla",
+ "track_changes": 1
+}

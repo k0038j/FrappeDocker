@@ -1,0 +1,1 @@
+"""Formato Comprobante de Viatico."""

@@ -1,0 +1,54 @@
+<style>
+  .viatico-title { text-align: center; margin-bottom: 18px; }
+  .viatico-meta { width: 100%; margin-bottom: 14px; }
+  .viatico-meta td { padding: 3px 8px; vertical-align: top; }
+  .viatico-detail { width: 100%; border-collapse: collapse; font-size: 10px; }
+  .viatico-detail th, .viatico-detail td { border: 1px solid #777; padding: 5px; }
+  .viatico-detail th { background: #f2f2f2; }
+  .viatico-number { text-align: right; white-space: nowrap; }
+  .viatico-totals { width: 45%; margin: 14px 0 30px auto; }
+  .viatico-totals td { padding: 4px 8px; border-bottom: 1px solid #bbb; }
+  .viatico-signatures { width: 100%; margin-top: 55px; text-align: center; }
+</style>
+
+<div class="viatico-title">
+  <h2>Comprobante de viático</h2>
+  <strong>{{ doc.name }}</strong>
+</div>
+
+<table class="viatico-meta">
+  <tr><td><strong>Empleado:</strong> {{ doc.empleado }} — {{ doc.nombre_empleado }}</td><td><strong>Estado:</strong> {{ doc.estado }}</td></tr>
+  <tr><td><strong>Empresa:</strong> {{ doc.empresa }}</td><td><strong>Tipo:</strong> {{ doc.tipo_viatico }}</td></tr>
+  <tr><td><strong>Período:</strong> {{ frappe.utils.format_date(doc.fecha_desde) }} al {{ frappe.utils.format_date(doc.fecha_hasta) }}</td><td><strong>Moneda:</strong> {{ doc.moneda }}</td></tr>
+  {% if doc.planilla_origen %}<tr><td colspan="2"><strong>Planilla:</strong> {{ doc.planilla_origen }}</td></tr>{% endif %}
+</table>
+
+<table class="viatico-detail">
+  <thead>
+    <tr><th>Fecha</th><th>Cargo</th><th>Destino</th><th>Proyecto</th><th>Monto</th><th>Asistencia</th><th>Ajuste</th><th>Neto</th></tr>
+  </thead>
+  <tbody>
+    {% for row in doc.dias %}
+    <tr>
+      <td>{{ frappe.utils.format_date(row.fecha) }}</td>
+      <td>{{ row.cargo }}</td>
+      <td>{{ row.destino }}</td>
+      <td>{{ row.proyecto }}</td>
+      <td class="viatico-number">{{ frappe.format_value(row.monto, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td>
+      <td>{{ row.estado_asistencia or "Pendiente" }}</td>
+      <td class="viatico-number">{{ frappe.format_value(row.ajuste_anterior_aplicado, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td>
+      <td class="viatico-number">{{ frappe.format_value(row.monto_neto, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table class="viatico-totals">
+  <tr><td>Monto total</td><td class="viatico-number">{{ frappe.format_value(doc.monto_total, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td></tr>
+  <tr><td>Ajuste anterior</td><td class="viatico-number">{{ frappe.format_value(doc.ajuste_anterior_total, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td></tr>
+  <tr><td><strong>Monto neto</strong></td><td class="viatico-number"><strong>{{ frappe.format_value(doc.monto_neto, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</strong></td></tr>
+</table>
+
+<table class="viatico-signatures">
+  <tr><td>______________________________<br>Recibido por: {{ doc.nombre_empleado }}</td><td>______________________________<br>Aprobado por: {{ doc.aprobador }}</td></tr>
+</table>

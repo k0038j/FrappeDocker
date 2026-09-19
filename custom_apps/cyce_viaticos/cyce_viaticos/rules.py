@@ -1,11 +1,12 @@
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 from typing import Iterable
 
 ADVANCE_TYPE = "Adelantado"
 REIMBURSEMENT_TYPE = "Reposición"
 ELIGIBLE_ATTENDANCE_STATUS = "Present"
+MAX_VIATIC_PERIOD_DAYS = 366
 
 
 @dataclass(frozen=True)
@@ -21,6 +22,15 @@ class AdjustmentAllocation:
 	applications: tuple[Decimal, ...]
 	day_deductions: tuple[Decimal, ...]
 	net_day_amounts: tuple[Decimal, ...]
+
+
+def build_inclusive_date_range(start_date: date, end_date: date) -> tuple[date, ...]:
+	day_count = (end_date - start_date).days + 1
+	if day_count <= 0:
+		raise ValueError("end_before_start")
+	if day_count > MAX_VIATIC_PERIOD_DAYS:
+		raise ValueError("period_too_long")
+	return tuple(start_date + timedelta(days=offset) for offset in range(day_count))
 
 
 def evaluate_attendance(

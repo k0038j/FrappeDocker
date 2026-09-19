@@ -1,0 +1,26 @@
+{
+ "actions": [],
+ "creation": "2026-09-13 10:30:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": ["empleado","nombre_empleado","cargo","monto_diario","destino","proyecto","viatico","estado_viatico","total_estimado"],
+ "fields": [
+  {"fieldname":"empleado","fieldtype":"Link","in_list_view":1,"label":"Empleado","options":"Employee","read_only":1,"reqd":1},
+  {"fieldname":"nombre_empleado","fieldtype":"Data","in_list_view":1,"label":"Nombre","read_only":1},
+  {"fieldname":"cargo","fieldtype":"Link","label":"Cargo","options":"Designation","read_only":1},
+  {"fieldname":"monto_diario","fieldtype":"Currency","in_list_view":1,"label":"Monto diario","options":"parent.moneda","reqd":1},
+  {"fieldname":"destino","fieldtype":"Data","in_list_view":1,"label":"Destino","reqd":1},
+  {"fieldname":"proyecto","fieldtype":"Link","in_list_view":1,"label":"Proyecto","options":"Project","reqd":1},
+  {"fieldname":"viatico","fieldtype":"Link","in_list_view":1,"label":"Viático generado","options":"Viatico","read_only":1},
+  {"fieldname":"estado_viatico","fieldtype":"Data","label":"Estado del viático","read_only":1},
+  {"fieldname":"total_estimado","fieldtype":"Currency","label":"Total estimado","options":"parent.moneda","read_only":1}
+ ],
+ "istable": 1,
+ "modified": "2026-09-13 10:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "CYCE Viaticos",
+ "name": "Planilla Viatico Empleado",
+ "owner": "Administrator",
+ "permissions": []
+}

@@ -2,7 +2,24 @@ import unittest
 from datetime import date
 from decimal import Decimal
 
-from cyce_viaticos.rules import allocate_adjustments, evaluate_attendance
+from cyce_viaticos.rules import allocate_adjustments, build_inclusive_date_range, evaluate_attendance
+
+
+class ViaticPeriodTest(unittest.TestCase):
+	def test_date_range_includes_both_boundaries(self):
+		dates = build_inclusive_date_range(date(2026, 9, 13), date(2026, 9, 15))
+		self.assertEqual(
+			dates,
+			(date(2026, 9, 13), date(2026, 9, 14), date(2026, 9, 15)),
+		)
+
+	def test_end_date_cannot_precede_start_date(self):
+		with self.assertRaisesRegex(ValueError, "end_before_start"):
+			build_inclusive_date_range(date(2026, 9, 15), date(2026, 9, 13))
+
+	def test_date_range_is_limited_to_one_year_and_one_day(self):
+		with self.assertRaisesRegex(ValueError, "period_too_long"):
+			build_inclusive_date_range(date(2026, 1, 1), date(2027, 1, 2))
 
 
 class AttendanceRulesTest(unittest.TestCase):

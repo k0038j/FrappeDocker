@@ -1,0 +1,21 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2026-09-13 10:30:00.000000",
+ "disable_prepared_report": 1,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "is_standard": "Yes",
+ "modified": "2026-09-13 10:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "CYCE Viaticos",
+ "name": "Detalle de Viaticos",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Viatico",
+ "report_name": "Detalle de Viaticos",
+ "report_type": "Script Report",
+ "roles": [{"role":"System Manager"},{"role":"HR Manager"},{"role":"HR User"},{"role":"Aprobador de Viaticos"}]
+}

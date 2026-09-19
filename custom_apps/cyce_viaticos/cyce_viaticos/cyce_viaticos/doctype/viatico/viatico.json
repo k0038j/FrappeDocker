@@ -20,8 +20,12 @@
   "periodo_section",
   "fecha_desde",
   "fecha_hasta",
+  "monto_diario",
   "column_break_periodo",
   "moneda",
+  "destino_predeterminado",
+  "proyecto_predeterminado",
+  "generar_dias",
   "detalle_section",
   "dias",
   "ajustes_section",
@@ -31,6 +35,7 @@
   "column_break_integracion_contable",
   "anticipo_empleado",
   "solicitud_gasto",
+  "planilla_origen",
   "totales_section",
   "monto_total",
   "ajuste_anterior_total",
@@ -133,15 +138,19 @@
    "fieldname": "fecha_desde",
    "fieldtype": "Date",
    "in_standard_filter": 1,
-   "label": "Fecha desde",
-   "read_only": 1
+   "label": "Fecha desde"
   },
   {
    "fieldname": "fecha_hasta",
    "fieldtype": "Date",
    "in_standard_filter": 1,
-   "label": "Fecha hasta",
-   "read_only": 1
+   "label": "Fecha hasta"
+  },
+  {
+   "fieldname": "monto_diario",
+   "fieldtype": "Currency",
+   "label": "Monto diario predeterminado",
+   "options": "moneda"
   },
   {
    "fieldname": "column_break_periodo",
@@ -154,6 +163,23 @@
    "label": "Moneda",
    "options": "Currency",
    "reqd": 1
+  },
+  {
+   "fieldname": "destino_predeterminado",
+   "fieldtype": "Data",
+   "label": "Destino predeterminado"
+  },
+  {
+   "fieldname": "proyecto_predeterminado",
+   "fieldtype": "Link",
+   "label": "Proyecto predeterminado",
+   "options": "Project"
+  },
+  {
+   "depends_on": "eval:doc.docstatus == 0",
+   "fieldname": "generar_dias",
+   "fieldtype": "Button",
+   "label": "Generar días"
   },
   {
    "fieldname": "detalle_section",
@@ -181,6 +207,7 @@
   {
    "fieldname": "integracion_contable_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Integración contable"
   },
   {
@@ -188,6 +215,8 @@
    "default": "Pendiente",
    "fieldname": "estado_integracion_contable",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Estado de integración contable",
    "options": "Pendiente\nGenerado\nNo requerido\nCancelado",
    "read_only": 1
@@ -215,6 +244,17 @@
    "read_only": 1
   },
   {
+   "fieldname": "planilla_origen",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "in_standard_filter": 1,
+   "label": "Planilla de origen",
+   "no_copy": 1,
+   "options": "Planilla Viatico",
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
    "fieldname": "totales_section",
    "fieldtype": "Section Break",
    "label": "Totales"
@@ -222,6 +262,7 @@
   {
    "fieldname": "monto_total",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Monto total",
    "options": "moneda",
    "read_only": 1
