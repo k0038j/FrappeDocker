@@ -23,6 +23,17 @@ LOCKED_FIELDS = (
 	"proyecto",
 )
 LOCKED_CHILD_FIELDS = ("empleado", "monto_diario", "destino", "proyecto", "viatico")
+EMPLOYEE_ROW_FIELDS = (
+	"empleado",
+	"nombre_empleado",
+	"cargo",
+	"monto_diario",
+	"destino",
+	"proyecto",
+	"viatico",
+	"estado_viatico",
+	"total_estimado",
+)
 
 
 class PlanillaViatico(Document):
@@ -45,6 +56,9 @@ class PlanillaViatico(Document):
 		selected = _as_employee_list(empleados)
 		if not selected:
 			return
+		for row in list(self.empleados):
+			if _is_blank_employee_row(row):
+				self.remove(row)
 
 		dates = _period_dates(self.fecha_desde, self.fecha_hasta)
 		rows = frappe.get_all(
@@ -191,6 +205,12 @@ class PlanillaViatico(Document):
 		seen = set()
 		total = money(0)
 		for row in self.empleados:
+			if not row.empleado:
+				frappe.throw(
+					_("La fila {0} no tiene un empleado seleccionado. Elimínela o complete el empleado.").format(
+						row.idx
+					)
+				)
 			if row.empleado == EXCLUDED_EMPLOYEE:
 				frappe.throw(_("Augusto no puede incluirse en ninguna planilla."))
 			if row.empleado in seen:
@@ -287,6 +307,16 @@ def _as_employee_list(value) -> list[str]:
 	if not isinstance(value, list):
 		frappe.throw(_("La selección de empleados no es válida."))
 	return list(dict.fromkeys(str(item) for item in value if item))
+
+
+def _is_blank_employee_row(row) -> bool:
+	return not any(_has_row_value(row.get(fieldname)) for fieldname in EMPLOYEE_ROW_FIELDS)
+
+
+def _has_row_value(value) -> bool:
+	if isinstance(value, str):
+		return bool(value.strip())
+	return bool(value)
 
 
 @frappe.whitelist()

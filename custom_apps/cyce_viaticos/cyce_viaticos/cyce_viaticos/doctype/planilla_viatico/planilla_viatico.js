@@ -52,7 +52,19 @@ frappe.ui.form.on("Planilla Viatico", {
 			frappe.msgprint(__("Seleccione una empresa."));
 			return;
 		}
-		const employee_selector = new frappe.ui.form.MultiSelectDialog({
+		class ViaticoEmployeeSelector extends frappe.ui.form.MultiSelectDialog {
+			make() {
+				super.make();
+				if (!frappe.model.can_create("Employee")) {
+					this.dialog.get_secondary_btn().addClass("hide");
+					return;
+				}
+				this.dialog.set_secondary_action_label(__("Crear empleado"));
+				this.dialog.set_secondary_action(() => crear_empleado_para_planilla(frm, this));
+			}
+		}
+
+		const employee_selector = new ViaticoEmployeeSelector({
 			doctype: "Employee",
 			target: frm,
 			primary_action_label: __("Guardar"),
@@ -67,19 +79,11 @@ frappe.ui.form.on("Planilla Viatico", {
 			},
 			action: async (selections) => {
 				await frm.call({ doc: frm.doc, method: "agregar_empleados", args: { empleados: selections } });
-				cur_dialog.hide();
 				frm.refresh_field("empleados");
+				await frm.save();
+				employee_selector.dialog.hide();
+				frappe.show_alert({ message: __("Planilla guardada."), indicator: "green" });
 			},
-		});
-		frappe.model.with_doctype("Employee", () => {
-			if (!frappe.model.can_create("Employee")) {
-				employee_selector.dialog.get_secondary_btn().addClass("hide");
-				return;
-			}
-			employee_selector.dialog.set_secondary_action_label(__("Crear empleado"));
-			employee_selector.dialog.set_secondary_action(() => {
-				crear_empleado_para_planilla(frm, employee_selector);
-			});
 		});
 	},
 });

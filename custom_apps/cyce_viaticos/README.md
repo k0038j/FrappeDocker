@@ -2,7 +2,7 @@
 
 Aplicación Frappe para controlar viáticos diarios vinculados con asistencia.
 
-La versión 0.5.5 incorpora la estructura V1, las reglas operativas V2, la integración contable V3 y la captura y consulta rápida V4:
+La versión 0.5.7 incorpora la estructura V1, las reglas operativas V2, la integración contable V3 y la captura y consulta rápida V4:
 
 - Viático principal con tipos Adelantado y Reposición.
 - Detalle por día con cargo, destino, proyecto y referencia de asistencia.
