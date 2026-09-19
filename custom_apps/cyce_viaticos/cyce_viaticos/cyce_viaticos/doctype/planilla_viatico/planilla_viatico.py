@@ -305,7 +305,7 @@ def empleados_activos(doctype, txt, searchfield, start, page_len, filters):
 	searchfield = searchfield if searchfield in {"name", "employee_name"} else "name"
 	return frappe.db.sql(
 		f"""
-		select name, employee_name, designation
+		select name, employee_name, designation as cargo
 		from `tabEmployee`
 		where status = 'Active'
 		  and company = %(company)s
@@ -321,4 +321,5 @@ def empleados_activos(doctype, txt, searchfield, start, page_len, filters):
 			"start": cint(start),
 			"page_len": cint(page_len),
 		},
+		as_dict=True,
 	)

@@ -52,10 +52,13 @@ frappe.ui.form.on("Planilla Viatico", {
 			frappe.msgprint(__("Seleccione una empresa."));
 			return;
 		}
-		new frappe.ui.form.MultiSelectDialog({
+		const employee_selector = new frappe.ui.form.MultiSelectDialog({
 			doctype: "Employee",
 			target: frm,
+			primary_action_label: __("Guardar"),
 			setters: { company: frm.doc.empresa },
+			read_only_setters: ["company"],
+			columns: ["name", "employee_name", "cargo"],
 			get_query() {
 				return {
 					query: "cyce_viaticos.cyce_viaticos.doctype.planilla_viatico.planilla_viatico.empleados_activos",
@@ -67,6 +70,16 @@ frappe.ui.form.on("Planilla Viatico", {
 				cur_dialog.hide();
 				frm.refresh_field("empleados");
 			},
+		});
+		frappe.model.with_doctype("Employee", () => {
+			if (!frappe.model.can_create("Employee")) {
+				employee_selector.dialog.get_secondary_btn().addClass("hide");
+				return;
+			}
+			employee_selector.dialog.set_secondary_action_label(__("Crear empleado"));
+			employee_selector.dialog.set_secondary_action(() => {
+				crear_empleado_para_planilla(frm, employee_selector);
+			});
 		});
 	},
 });
@@ -80,4 +93,28 @@ function actualizar_estimado(frm, cdt, cdn) {
 	if (!frm.doc.fecha_desde || !frm.doc.fecha_hasta) return;
 	const days = frappe.datetime.get_day_diff(frm.doc.fecha_hasta, frm.doc.fecha_desde) + 1;
 	frappe.model.set_value(cdt, cdn, "total_estimado", flt(row.monto_diario) * Math.max(days, 0));
+}
+
+function crear_empleado_para_planilla(frm, employee_selector) {
+	const employee = frappe.model.get_new_doc("Employee");
+	employee.company = frm.doc.empresa;
+	employee.status = "Active";
+
+	class ViaticoEmployeeQuickEntryForm extends frappe.ui.form.QuickEntryForm {
+		set_meta_and_mandatory_fields() {
+			super.set_meta_and_mandatory_fields();
+			if (!this.docfields.some((field) => field.fieldname === "designation")) {
+				const designation = frappe.meta.get_docfield("Employee", "designation");
+				this.docfields.push({ ...designation, reqd: 1 });
+			}
+		}
+	}
+
+	new ViaticoEmployeeQuickEntryForm(
+		"Employee",
+		() => employee_selector.get_results(),
+		(quick_entry) => quick_entry.toggle_enable(["company", "status"], false),
+		employee,
+		true
+	).setup();
 }

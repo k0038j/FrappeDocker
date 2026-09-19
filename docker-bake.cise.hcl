@@ -3,7 +3,7 @@ variable "CISE_IMAGE" {
 }
 
 variable "CISE_TAG" {
-  default = "f16.29.0-e16.30.0-h16.17.1-via0.5.1"
+  default = "f16.29.0-e16.30.0-h16.17.1-via0.5.5"
 }
 
 group "default" {
