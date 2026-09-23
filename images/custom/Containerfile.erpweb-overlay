@@ -1,0 +1,45 @@
+ARG BASE_IMAGE=cise/erpnext-hrms:f16.29.0-e16.30.0-h16.17.1-via0.5.9
+FROM ${BASE_IMAGE} AS backend
+
+# Build the reviewed runtime incrementally from the last healthy image. Copy
+# every ERPWeb runtime file changed by this delivery so the resulting image no
+# longer relies on untracked edits inside a local intermediate container.
+
+# Current reviewed viatics application (clean repository state).
+COPY --from=cyce_viaticos --chown=frappe:frappe / /home/frappe/frappe-bench/apps/cyce_viaticos/
+
+# Usage-hours depreciation and preventive maintenance.
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset/asset.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset/asset.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset/asset.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset/asset.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset/depreciation.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset/depreciation.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_depreciation_schedule/asset_depreciation_schedule.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_depreciation_schedule/asset_depreciation_schedule.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_depreciation_schedule/deppreciation_schedule_controller.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_depreciation_schedule/deppreciation_schedule_controller.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_finance_book/asset_finance_book.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_finance_book/asset_finance_book.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_finance_book/asset_finance_book.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_finance_book/asset_finance_book.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_maintenance/asset_maintenance.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_maintenance/asset_maintenance.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_maintenance_log/asset_maintenance_log.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_maintenance_log/asset_maintenance_log.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_maintenance_log/asset_maintenance_log.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_maintenance_log/asset_maintenance_log.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_maintenance_task/asset_maintenance_task.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_maintenance_task/asset_maintenance_task.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_maintenance_task/asset_maintenance_task.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_maintenance_task/asset_maintenance_task.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_usage_log/__init__.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_usage_log/__init__.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_usage_log/asset_usage_log.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_usage_log/asset_usage_log.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_usage_log/asset_usage_log.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_usage_log/asset_usage_log.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.py
+
+# Project/Warehouse integration (15 files).
+COPY --from=erpweb --chown=frappe:frappe /erpnext/projects/doctype/project/project.js /home/frappe/frappe-bench/apps/erpnext/erpnext/projects/doctype/project/project.js
+COPY --from=erpweb --chown=frappe:frappe /erpnext/projects/doctype/project/project.json /home/frappe/frappe-bench/apps/erpnext/erpnext/projects/doctype/project/project.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/projects/doctype/project/project.py /home/frappe/frappe-bench/apps/erpnext/erpnext/projects/doctype/project/project.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/projects/doctype/project_warehouse/__init__.py /home/frappe/frappe-bench/apps/erpnext/erpnext/projects/doctype/project_warehouse/__init__.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/projects/doctype/project_warehouse/project_warehouse.json /home/frappe/frappe-bench/apps/erpnext/erpnext/projects/doctype/project_warehouse/project_warehouse.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/projects/doctype/project_warehouse/project_warehouse.py /home/frappe/frappe-bench/apps/erpnext/erpnext/projects/doctype/project_warehouse/project_warehouse.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/projects/utils.py /home/frappe/frappe-bench/apps/erpnext/erpnext/projects/utils.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/doctype/material_request/material_request.js /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/doctype/material_request/material_request.js
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/doctype/material_request/material_request.py /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/doctype/material_request/material_request.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/doctype/stock_entry/stock_entry.js /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/doctype/stock_entry/stock_entry.js
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/doctype/stock_entry/stock_entry.py /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/doctype/stock_entry/stock_entry.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/report/existencias_por_proyecto_y_bodega/__init__.py /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/report/existencias_por_proyecto_y_bodega/__init__.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/report/existencias_por_proyecto_y_bodega/existencias_por_proyecto_y_bodega.js /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/report/existencias_por_proyecto_y_bodega/existencias_por_proyecto_y_bodega.js
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/report/existencias_por_proyecto_y_bodega/existencias_por_proyecto_y_bodega.json /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/report/existencias_por_proyecto_y_bodega/existencias_por_proyecto_y_bodega.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/stock/report/existencias_por_proyecto_y_bodega/existencias_por_proyecto_y_bodega.py /home/frappe/frappe-bench/apps/erpnext/erpnext/stock/report/existencias_por_proyecto_y_bodega/existencias_por_proyecto_y_bodega.py
