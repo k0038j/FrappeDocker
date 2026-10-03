@@ -10,11 +10,11 @@ class ViaticosWorkspaceNavigationTest(unittest.TestCase):
 	def load_json(self, *parts):
 		return json.loads(APP_PACKAGE.joinpath(*parts).read_text(encoding="utf-8"))
 
-	def test_desktop_icon_is_nested_in_human_resources(self):
+	def test_desktop_icon_is_on_main_desktop(self):
 		icon = self.load_json("desktop_icon", "viaticos.json")
 
 		self.assertEqual(icon["label"], "Viáticos")
-		self.assertEqual(icon["parent_icon"], "Frappe HR")
+		self.assertEqual(icon["parent_icon"], "")
 		self.assertEqual(icon["link_type"], "Workspace Sidebar")
 		self.assertEqual(icon["link_to"], "Viáticos")
 

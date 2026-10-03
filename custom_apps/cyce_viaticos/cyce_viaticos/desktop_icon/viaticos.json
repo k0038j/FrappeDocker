@@ -11,11 +11,11 @@
  "link_to": "Viáticos",
  "link_type": "Workspace Sidebar",
  "logo_url": "",
- "modified": "2026-09-21 21:30:00.000000",
+ "modified": "2026-09-28 11:40:00.000000",
  "modified_by": "Administrator",
  "name": "Viáticos",
  "owner": "Administrator",
- "parent_icon": "Frappe HR",
+ "parent_icon": "",
  "restrict_removal": 0,
  "roles": [],
  "standard": 1
