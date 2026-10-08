@@ -10,6 +10,7 @@ def after_install():
 	from cyce_viaticos.accounting import ensure_accounting_setup
 
 	ensure_accounting_setup()
+	ensure_desktop_navigation()
 
 
 def after_migrate():
@@ -17,6 +18,32 @@ def after_migrate():
 	from cyce_viaticos.accounting import ensure_accounting_setup
 
 	ensure_accounting_setup()
+	ensure_desktop_navigation()
+
+
+def ensure_desktop_navigation():
+	"""Restore standard navigation after Frappe v16 orphan cleanup.
+
+	Frappe v16 syncs app-level Desktop Icon and Workspace Sidebar files, but its
+	orphan cleanup does not map folder names containing spaces back to their
+	underscored directories. Importing the reviewed standard files after that
+	cleanup keeps the navigation deterministic without changing routes or IDs.
+	"""
+	from frappe.modules.import_file import import_file_by_path
+
+	for folder, filename in (
+		("workspace_sidebar", "viaticos.json"),
+		("desktop_icon", "viaticos.json"),
+	):
+		import_file_by_path(
+			frappe.get_app_path("cyce_viaticos", folder, filename),
+			force=True,
+			ignore_version=True,
+		)
+
+	from cyce_viaticos.desktop_navigation import add_viaticos_to_saved_desktops
+
+	add_viaticos_to_saved_desktops()
 
 
 def ensure_exclusive_approver():

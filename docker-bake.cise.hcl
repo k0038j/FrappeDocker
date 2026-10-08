@@ -3,11 +3,11 @@ variable "CISE_IMAGE" {
 }
 
 variable "CISE_TAG" {
-  default = "f16.29.0-e16.30.0-h16.17.1-via0.5.14"
+  default = "f16.29.0-e16.30.0-h16.17.1-via0.5.32"
 }
 
 variable "CISE_BASE_IMAGE" {
-  default = "cise/erpnext-hrms:f16.29.0-e16.30.0-h16.17.1-via0.5.13"
+  default = "cise/erpnext-hrms:f16.29.0-e16.30.0-h16.17.1-via0.5.15"
 }
 
 group "default" {
@@ -22,6 +22,7 @@ target "cise" {
 
   contexts = {
     erpweb        = "../ERPWeb"
+    hrms          = "../hrms"
     cyce_viaticos = "./custom_apps/cyce_viaticos"
   }
 

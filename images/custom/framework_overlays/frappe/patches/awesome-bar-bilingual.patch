@@ -1,0 +1,71 @@
+diff --git a/frappe/public/js/frappe/ui/toolbar/search_utils.js b/frappe/public/js/frappe/ui/toolbar/search_utils.js
+--- a/frappe/public/js/frappe/ui/toolbar/search_utils.js
++++ b/frappe/public/js/frappe/ui/toolbar/search_utils.js
+@@ -1,5 +1,6 @@
+ frappe.provide("frappe.search");
+ import { fuzzy_match } from "./fuzzy_match.js";
++import { bilingual_fuzzy_search } from "./bilingual_fuzzy_search.js";
+ 
+ frappe.search.utils = {
+ 	setup_recent: function () {
+@@ -175,7 +176,7 @@ frappe.search.utils = {
+ 			return {
+ 				type: type,
+ 				label: label,
+-				value: __(`{0} ${type}`, [target]),
++				value: __(`{0} ${type}`, [__(target)]),
+ 				index: score + order,
+ 				match: target,
+ 				route: route,
+@@ -593,50 +594,7 @@ frappe.search.utils = {
+ 	},
+ 
+ 	fuzzy_search: function (keywords = "", _item = "", return_marked_string = false) {
+-		let item = __(_item);
+-
+-		let [, score, matches] = fuzzy_match(keywords, item, return_marked_string);
+-		if (score == 0 && frappe.boot.lang !== "en" && item != _item) {
+-			item = _item || "";
+-			[, score, matches] = fuzzy_match(keywords, item, return_marked_string);
+-		}
+-
+-		if (!return_marked_string) {
+-			return score;
+-		}
+-		if (score == 0) {
+-			return {
+-				score: score,
+-				marked_string: item,
+-			};
+-		}
+-
+-		// Create Boolean mask to mark matching indices in the item string
+-		const matchArray = Array(item.length).fill(0);
+-		matches.forEach((index) => (matchArray[index] = 1));
+-
+-		let marked_string = "";
+-		let buffer = "";
+-
+-		// Clear the buffer and return marked matches.
+-		const flushBuffer = () => {
+-			if (!buffer) return "";
+-			const temp = `<mark>${buffer}</mark>`;
+-			buffer = "";
+-			return temp;
+-		};
+-
+-		matchArray.forEach((isMatch, index) => {
+-			if (isMatch) {
+-				buffer += item[index];
+-			} else {
+-				marked_string += flushBuffer();
+-				marked_string += item[index];
+-			}
+-		});
+-		marked_string += flushBuffer();
+-
+-		return { score, marked_string };
++		return bilingual_fuzzy_search(keywords, _item, return_marked_string, __, fuzzy_match);
+ 	},
+ 
+ 	/**

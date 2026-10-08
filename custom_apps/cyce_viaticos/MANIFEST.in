@@ -1,6 +1,7 @@
 include *.md
 include *.txt
 recursive-include cyce_viaticos *.css
+recursive-include cyce_viaticos *.csv
 recursive-include cyce_viaticos *.html
 recursive-include cyce_viaticos *.js
 recursive-include cyce_viaticos *.json

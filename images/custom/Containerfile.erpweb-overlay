@@ -1,4 +1,26 @@
-ARG BASE_IMAGE=cise/erpnext-hrms:f16.29.0-e16.30.0-h16.17.1-via0.5.13
+ARG BASE_IMAGE=cise/erpnext-hrms:f16.29.0-e16.30.0-h16.17.1-via0.5.15
+
+FROM node:20-bookworm-slim AS hrms-frontend-builder
+WORKDIR /build/frontend
+COPY --from=hrms /frontend/package.json /frontend/yarn.lock ./
+RUN corepack enable && corepack prepare yarn@1.22.22 --activate && yarn install --frozen-lockfile
+COPY --from=hrms /frontend/ ./
+RUN mkdir -p /build/hrms/public/frontend /build/hrms/www && yarn build
+
+FROM ${BASE_IMAGE} AS frappe-assets-builder
+
+COPY --chown=frappe:frappe images/custom/framework_overlays/frappe/frappe/public/js/frappe/ui/toolbar/bilingual_fuzzy_search.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/bilingual_fuzzy_search.js
+COPY --chown=frappe:frappe images/custom/framework_overlays/frappe/patches/awesome-bar-bilingual.patch /tmp/awesome-bar-bilingual.patch
+
+RUN set -eux; \
+  cd /home/frappe/frappe-bench/apps/frappe; \
+  git apply --check /tmp/awesome-bar-bilingual.patch; \
+  git apply /tmp/awesome-bar-bilingual.patch; \
+  cd /home/frappe/frappe-bench; \
+  mkdir -p sites/assets; \
+  cp -a assets/. sites/assets/; \
+  bench build --app frappe
+
 FROM ${BASE_IMAGE} AS backend
 
 # Build the reviewed runtime incrementally from the last healthy image. Copy
@@ -7,6 +29,21 @@ FROM ${BASE_IMAGE} AS backend
 
 # Current reviewed viatics application (clean repository state).
 COPY --from=cyce_viaticos --chown=frappe:frappe / /home/frappe/frappe-bench/apps/cyce_viaticos/
+
+# Bilingual Awesome Bar: both canonical English and localized Spanish names
+# match, while the displayed label and rebuilt Desk bundle stay localized.
+COPY --from=frappe-assets-builder --chown=frappe:frappe /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/search_utils.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/search_utils.js
+COPY --from=frappe-assets-builder --chown=frappe:frappe /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/bilingual_fuzzy_search.js /home/frappe/frappe-bench/apps/frappe/frappe/public/js/frappe/ui/toolbar/bilingual_fuzzy_search.js
+COPY --from=frappe-assets-builder --chown=frappe:frappe /home/frappe/frappe-bench/apps/frappe/frappe/public/dist/ /home/frappe/frappe-bench/apps/frappe/frappe/public/dist/
+COPY --from=frappe-assets-builder --chown=frappe:frappe /home/frappe/frappe-bench/sites/assets/ /home/frappe/frappe-bench/assets/
+
+# Reviewed HRMS Spanish catalog. Keep identifiers and stored values unchanged;
+# only presentation translations are overlaid.
+COPY --from=hrms --chown=frappe:frappe /hrms/locale/es.po /home/frappe/frappe-bench/apps/hrms/hrms/locale/es.po
+COPY --from=hrms --chown=frappe:frappe /hrms/translations/es.csv /home/frappe/frappe-bench/apps/hrms/hrms/translations/es.csv
+COPY --from=hrms --chown=frappe:frappe /frontend/src/components/CheckInPanel.vue /home/frappe/frappe-bench/apps/hrms/frontend/src/components/CheckInPanel.vue
+COPY --from=hrms-frontend-builder --chown=frappe:frappe /build/hrms/public/frontend/ /home/frappe/frappe-bench/apps/hrms/hrms/public/frontend/
+COPY --from=hrms-frontend-builder --chown=frappe:frappe /build/hrms/www/hrms.html /home/frappe/frappe-bench/apps/hrms/hrms/www/hrms.html
 
 # Usage-hours depreciation and preventive maintenance.
 COPY --from=erpweb --chown=frappe:frappe /erpnext/accounts/doctype/journal_entry/services/asset_service.py /home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/journal_entry/services/asset_service.py
@@ -35,12 +72,21 @@ COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_usage_log
 COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_usage_log/asset_usage_log.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_usage_log/asset_usage_log.py
 COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_usage_log/asset_usage_log.js /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_usage_log/asset_usage_log.js
 COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/asset_usage_log/test_asset_usage_log.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/asset_usage_log/test_asset_usage_log.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/workspace/assets/assets.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/workspace/assets/assets.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/workspace_sidebar/assets.json /home/frappe/frappe-bench/apps/erpnext/erpnext/workspace_sidebar/assets.json
+COPY --from=erpweb --chown=frappe:frappe /erpnext/locale/es.po /home/frappe/frappe-bench/apps/erpnext/erpnext/locale/es.po
+COPY --from=erpweb --chown=frappe:frappe /erpnext/translations/es.csv /home/frappe/frappe-bench/apps/erpnext/erpnext/translations/es.csv
 COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.json /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.json
 COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.py /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/doctype/depreciation_schedule/depreciation_schedule.py
 COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/report/machinery_cost_and_budget_by_project/ /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/report/machinery_cost_and_budget_by_project/
 COPY --from=erpweb --chown=frappe:frappe /erpnext/assets/report/machinery_usage_and_maintenance_projection/ /home/frappe/frappe-bench/apps/erpnext/erpnext/assets/report/machinery_usage_and_maintenance_projection/
 
 # Purchase Order observations across the DocType, reports, and standard print formats.
+COPY --from=erpweb --chown=frappe:frappe /erpnext/patches.txt /home/frappe/frappe-bench/apps/erpnext/erpnext/patches.txt
+COPY --from=erpweb --chown=frappe:frappe /erpnext/patches/v16_0/set_default_letter_head_for_doctype_and_report.py /home/frappe/frappe-bench/apps/erpnext/erpnext/patches/v16_0/set_default_letter_head_for_doctype_and_report.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/patches/v16_0/sync_asset_usage_navigation.py /home/frappe/frappe-bench/apps/erpnext/erpnext/patches/v16_0/sync_asset_usage_navigation.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/patches/v16_0/sync_purchase_order_observation_print_formats.py /home/frappe/frappe-bench/apps/erpnext/erpnext/patches/v16_0/sync_purchase_order_observation_print_formats.py
+COPY --from=erpweb --chown=frappe:frappe /erpnext/patches/v16_0/sync_t4_purchase_print_formats.py /home/frappe/frappe-bench/apps/erpnext/erpnext/patches/v16_0/sync_t4_purchase_print_formats.py
 COPY --from=erpweb --chown=frappe:frappe /erpnext/buying/doctype/purchase_order/purchase_order.json /home/frappe/frappe-bench/apps/erpnext/erpnext/buying/doctype/purchase_order/purchase_order.json
 COPY --from=erpweb --chown=frappe:frappe /erpnext/buying/report/purchase_order_analysis/ /home/frappe/frappe-bench/apps/erpnext/erpnext/buying/report/purchase_order_analysis/
 COPY --from=erpweb --chown=frappe:frappe /erpnext/buying/report/item_wise_purchase_history/ /home/frappe/frappe-bench/apps/erpnext/erpnext/buying/report/item_wise_purchase_history/

@@ -12,20 +12,20 @@
 </style>
 
 <div class="viatico-title">
-  <h2>Comprobante de viático</h2>
+  <h2>{{ _("Comprobante de viático") }}</h2>
   <strong>{{ doc.name }}</strong>
 </div>
 
 <table class="viatico-meta">
-  <tr><td><strong>Empleado:</strong> {{ doc.empleado }} — {{ doc.nombre_empleado }}</td><td><strong>Estado:</strong> {{ doc.estado }}</td></tr>
-  <tr><td><strong>Empresa:</strong> {{ doc.empresa }}</td><td><strong>Tipo:</strong> {{ doc.tipo_viatico }}</td></tr>
-  <tr><td><strong>Período:</strong> {{ frappe.utils.format_date(doc.fecha_desde) }} al {{ frappe.utils.format_date(doc.fecha_hasta) }}</td><td><strong>Moneda:</strong> {{ doc.moneda }}</td></tr>
-  {% if doc.planilla_origen %}<tr><td colspan="2"><strong>Planilla:</strong> {{ doc.planilla_origen }}</td></tr>{% endif %}
+  <tr><td><strong>{{ _("Empleado") }}:</strong> {{ doc.empleado }} — {{ doc.nombre_empleado }}</td><td><strong>{{ _("Estado") }}:</strong> {{ _(doc.estado) }}</td></tr>
+  <tr><td><strong>{{ _("Empresa") }}:</strong> {{ doc.empresa }}</td><td><strong>{{ _("Tipo") }}:</strong> {{ _(doc.tipo_viatico) }}</td></tr>
+  <tr><td><strong>{{ _("Período") }}:</strong> {{ frappe.utils.format_date(doc.fecha_desde) }} {{ _("al") }} {{ frappe.utils.format_date(doc.fecha_hasta) }}</td><td><strong>{{ _("Moneda") }}:</strong> {{ doc.moneda }}</td></tr>
+  {% if doc.planilla_origen %}<tr><td colspan="2"><strong>{{ _("Planilla") }}:</strong> {{ doc.planilla_origen }}</td></tr>{% endif %}
 </table>
 
 <table class="viatico-detail">
   <thead>
-    <tr><th>Fecha</th><th>Cargo</th><th>Destino</th><th>Proyecto</th><th>Monto</th><th>Asistencia</th><th>Ajuste</th><th>Neto</th></tr>
+    <tr><th>{{ _("Fecha") }}</th><th>{{ _("Cargo") }}</th><th>{{ _("Destino") }}</th><th>{{ _("Proyecto") }}</th><th>{{ _("Monto") }}</th><th>{{ _("Asistencia") }}</th><th>{{ _("Ajuste") }}</th><th>{{ _("Neto") }}</th></tr>
   </thead>
   <tbody>
     {% for row in doc.dias %}
@@ -35,7 +35,7 @@
       <td>{{ row.destino }}</td>
       <td>{{ row.proyecto }}</td>
       <td class="viatico-number">{{ frappe.format_value(row.monto, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td>
-      <td>{{ row.estado_asistencia or "Pendiente" }}</td>
+      <td>{{ _(row.estado_asistencia or "Pendiente") }}</td>
       <td class="viatico-number">{{ frappe.format_value(row.ajuste_anterior_aplicado, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td>
       <td class="viatico-number">{{ frappe.format_value(row.monto_neto, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td>
     </tr>
@@ -44,11 +44,11 @@
 </table>
 
 <table class="viatico-totals">
-  <tr><td>Monto total</td><td class="viatico-number">{{ frappe.format_value(doc.monto_total, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td></tr>
-  <tr><td>Ajuste anterior</td><td class="viatico-number">{{ frappe.format_value(doc.ajuste_anterior_total, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td></tr>
-  <tr><td><strong>Monto neto</strong></td><td class="viatico-number"><strong>{{ frappe.format_value(doc.monto_neto, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</strong></td></tr>
+  <tr><td>{{ _("Monto total") }}</td><td class="viatico-number">{{ frappe.format_value(doc.monto_total, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td></tr>
+  <tr><td>{{ _("Ajuste anterior") }}</td><td class="viatico-number">{{ frappe.format_value(doc.ajuste_anterior_total, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</td></tr>
+  <tr><td><strong>{{ _("Monto neto") }}</strong></td><td class="viatico-number"><strong>{{ frappe.format_value(doc.monto_neto, {"fieldtype":"Currency", "options":"moneda"}, doc) }}</strong></td></tr>
 </table>
 
 <table class="viatico-signatures">
-  <tr><td>______________________________<br>Recibido por: {{ doc.nombre_empleado }}</td><td>______________________________<br>Aprobado por: {{ doc.aprobador }}</td></tr>
+  <tr><td>______________________________<br>{{ _("Recibido por") }}: {{ doc.nombre_empleado }}</td><td>______________________________<br>{{ _("Aprobado por") }}: {{ doc.aprobador }}</td></tr>
 </table>

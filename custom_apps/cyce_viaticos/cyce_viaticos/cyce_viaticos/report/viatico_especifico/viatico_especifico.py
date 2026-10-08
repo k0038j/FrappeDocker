@@ -1,7 +1,10 @@
 import frappe
 from frappe import _
 
-from cyce_viaticos.cyce_viaticos.report.report_utils import get_allowed_viatic
+from cyce_viaticos.cyce_viaticos.report.report_utils import (
+	get_allowed_viatic,
+	translate_presentation_values,
+)
 
 
 def execute(filters=None):
@@ -31,6 +34,10 @@ def execute(filters=None):
 	for row in details:
 		row.update(parent)
 		data.append(row)
+	translate_presentation_values(
+		data,
+		("tipo_viatico", "estado_asistencia", "estado", "estado_integracion_contable"),
+	)
 	return get_columns(), data
 
 

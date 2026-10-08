@@ -3,6 +3,22 @@ from frappe import _
 from frappe.utils import getdate
 
 
+def translate_presentation_values(rows, fieldnames):
+	"""Translate report-only values without changing canonical database values.
+
+	Query report exports use the values returned by ``execute`` and do not run
+	the client-side formatter. Translating these fields on the server therefore
+	keeps Desk, PDF/print, CSV, and Excel output aligned with the session
+	language while filters and stored values remain canonical.
+	"""
+	for row in rows:
+		for fieldname in fieldnames:
+			value = row.get(fieldname)
+			if value:
+				row[fieldname] = _(value)
+	return rows
+
+
 def get_allowed_viatics(filters, fields):
 	filters = frappe._dict(filters or {})
 	_validate_period(filters)

@@ -3,6 +3,7 @@
 import json
 
 import frappe
+from frappe import _
 
 
 def add_viaticos_to_saved_desktops():
@@ -23,7 +24,7 @@ def add_viaticos_to_saved_desktops():
 			continue
 		layout = json.loads(saved.layout or "[]")
 		if not isinstance(layout, list):
-			frappe.throw(f"Invalid desktop layout: {saved.name}")
+			frappe.throw(_("El diseño de escritorio {0} no es válido.").format(saved.name))
 		before = json.dumps(layout)
 		existing = next(
 			(item for item in layout if item.get("name") == "Viáticos" or item.get("label") == "Viáticos"),

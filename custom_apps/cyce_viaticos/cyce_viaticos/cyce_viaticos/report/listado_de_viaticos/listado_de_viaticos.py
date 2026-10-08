@@ -1,6 +1,9 @@
 from frappe import _
 
-from cyce_viaticos.cyce_viaticos.report.report_utils import get_allowed_viatics
+from cyce_viaticos.cyce_viaticos.report.report_utils import (
+	get_allowed_viatics,
+	translate_presentation_values,
+)
 
 
 def execute(filters=None):
@@ -11,6 +14,10 @@ def execute(filters=None):
 			"moneda", "monto_total", "ajuste_anterior_total", "monto_neto", "estado",
 			"estado_integracion_contable", "planilla_origen", "anticipo_empleado", "solicitud_gasto",
 		],
+	)
+	translate_presentation_values(
+		data,
+		("tipo_viatico", "estado", "estado_integracion_contable"),
 	)
 	return get_columns(), data
 
