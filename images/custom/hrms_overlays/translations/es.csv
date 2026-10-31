@@ -1,0 +1,292 @@
+Salary Slip,Recibo de salario
+Filter Employees,Filtrar empleados
+Is Salary Withheld,Salario retenido
+Failure Details,Detalles del fallo
+Overtime Slip Step,Paso del comprobante de horas extra
+Payroll Payable Account,Cuenta por pagar de nómina
+Payroll Import,Importación de nómina
+Payroll Import Column,Columna de importación de nómina
+Payroll Import Row,Fila de importación de nómina
+Compañía,Compañía
+Proyecto,Proyecto
+Centro de costo,Centro de costo
+Modalidad de nómina,Modalidad de nómina
+Estructura salarial predeterminada,Estructura salarial predeterminada
+Fecha de inicio,Fecha de inicio
+Fecha de fin,Fecha de fin
+Estado,Estado
+Entrada de nómina,Entrada de nómina
+Datos pegados,Datos pegados
+Datos pegados (CSV/TSV),Datos pegados (CSV/TSV)
+Pegue CSV o TSV. Las columnas de viáticos se ignoran y nunca se aplican.,Pegue CSV o TSV. Las columnas de viáticos se ignoran y nunca se aplican.
+Mapeo de columnas,Mapeo de columnas
+Mapeos de columnas,Mapeos de columnas
+Vista previa,Vista previa
+Filas de vista previa,Filas de vista previa
+Validación,Validación
+Mensajes de validación,Mensajes de validación
+Importar libro XLSX,Importar libro XLSX
+Archivo XLSX,Archivo XLSX
+Adjunte un archivo XLSX. Solo se leen valores almacenados; no se ejecutan fórmulas.,Adjunte un archivo XLSX. Solo se leen valores almacenados; no se ejecutan fórmulas.
+Nombre de archivo,Nombre de archivo
+Huella del archivo,Huella del archivo
+Hoja XLSX,Hoja XLSX
+Fila de encabezados,Fila de encabezados
+Fila inicial de datos,Fila inicial de datos
+Fila final de datos,Fila final de datos
+Candidatos de encabezados detectados,Candidatos de encabezados detectados
+Columna de origen,Columna de origen
+Campo canónico,Campo canónico
+Posición,Posición
+Ignorar,Ignorar
+Fila de origen,Fila de origen
+Código de empleado,Código de empleado
+Nombre de empleado,Nombre de empleado
+Empleado resuelto,Empleado resuelto
+Estado de coincidencia,Estado de coincidencia
+Mensaje de validación,Mensaje de validación
+Categoría de nómina,Categoría de nómina
+Salario básico,Salario básico
+Tarifa diaria,Tarifa diaria
+Días trabajados importados,Días trabajados importados
+Vista previa de días de asistencia,Vista previa de días de asistencia
+Monto básico estimado,Monto básico estimado
+Horas extra,Horas extra
+Tarifa por hora extra,Tarifa por hora extra
+Otros ingresos,Otros ingresos
+Notas,Notas
+Datos de viático ignorados,Datos de viático ignorados
+Datos de origen,Datos de origen
+Payroll Mode,Modalidad de nómina
+Project,Proyecto
+Fortnightly INSS/IR,Quincenal INSS/IR
+Professional Services,Servicios profesionales
+Company,Compañía
+Cost Center,Centro de costos
+Default Salary Structure,Estructura salarial predeterminada
+Salary Structure,Estructura salarial
+Componente de salario básico,Componente de salario básico
+Opcional. Sobrescribe el componente básico con el importe calculado por asistencia.,Opcional. Sobrescribe el componente básico con el importe calculado por asistencia.
+Componente de horas extra,Componente de horas extra
+Requerido cuando se importan horas extra.,Requerido cuando se importan horas extra.
+Componente de otros ingresos,Componente de otros ingresos
+Requerido cuando se importan otros ingresos.,Requerido cuando se importan otros ingresos.
+Status,Estado
+Payroll Entry,Entrada de nómina
+Ingresos variables preparados,Ingresos variables preparados
+Period Start,Inicio del período
+Period End,Fin del período
+Pasted Data,Datos pegados
+Raw Pasted Data,Datos pegados sin procesar
+"Paste CSV or TSV. Viático columns are ignored and are never applied.","Pegue datos CSV o TSV. Las columnas de viáticos se ignoran y nunca se aplican."
+Adjunte un archivo XLSX antes de inspeccionarlo o importarlo.,Adjunte un archivo XLSX antes de inspeccionarlo o importarlo.
+El archivo adjunto debe ser un libro XLSX.,El archivo adjunto debe ser un libro XLSX.
+La biblioteca XLSX requerida no está disponible en este entorno.,La biblioteca XLSX requerida no está disponible en este entorno.
+No se pudo leer el libro XLSX: {0},No se pudo leer el libro XLSX: {0}
+Seleccione una hoja y la fila de encabezados del libro XLSX.,Seleccione una hoja y la fila de encabezados del libro XLSX.
+La hoja XLSX seleccionada no existe.,La hoja XLSX seleccionada no existe.
+El rango de encabezado y datos XLSX no es válido.,El rango de encabezado y datos XLSX no es válido.
+La fila de encabezados XLSX está vacía.,La fila de encabezados XLSX está vacía.
+La fórmula sin resultado almacenado en {0}!{1}{2} debe recalcularse y guardarse antes de importar.,La fórmula sin resultado almacenado en {0}!{1}{2} debe recalcularse y guardarse antes de importar.
+El archivo XLSX cambió. Inspecciónelo de nuevo antes de importar.,El archivo XLSX cambió. Inspecciónelo de nuevo antes de importar.
+"Este archivo, hoja y sección ya se importaron en: {0}. Cree una nueva sección o use el documento existente.","Este archivo, hoja y sección ya se importaron en: {0}. Cree una nueva sección o use el documento existente."
+Column Mapping,Mapeo de columnas
+Column Mappings,Mapeos de columnas
+Preview,Vista previa
+Preview Rows,Filas de vista previa
+Validation,Validación
+Validation Messages,Mensajes de validación
+Source Column,Columna de origen
+Canonical Field,Campo canónico
+Position,Posición
+Ignore,Ignorar
+Source Row,Fila de origen
+Employee Code,Código del empleado
+Employee Name,Nombre del empleado
+Matched Employee,Empleado coincidente
+Match Status,Estado de coincidencia
+Validation Message,Mensaje de validación
+Payroll Category,Categoría de nómina
+Basic Salary,Salario básico
+Daily Rate,Tarifa diaria
+Imported Days Worked,Días trabajados importados
+Attendance Days Preview,Vista previa de días de asistencia
+Estimated Basic Amount,Importe básico estimado
+Overtime Hours,Horas extra
+Overtime Rate,Tarifa de horas extra
+Other Income,Otros ingresos
+Notes,Observaciones
+Viático Data Ignored,Datos de viático ignorados
+Source Data,Datos de origen
+employee_code,Código del empleado
+employee_name,Nombre del empleado
+payroll_category,Categoría de nómina
+basic_salary,Salario básico
+daily_rate,Tarifa diaria
+days_worked,Días trabajados
+overtime_hours,Horas extra
+overtime_rate,Tarifa de horas extra
+other_income,Otros ingresos
+notes,Observaciones
+project,Proyecto
+cost_center,Centro de costos
+Draft,Borrador
+Validated,Validado
+Applied,Aplicado
+Error,Error
+Matched,Coincidente
+Ambiguous,Ambiguo
+Not Found,No encontrado
+Blocked,Bloqueado
+Ignored,Ignorado
+Unmarked,Sin marcar
+Conflict,Conflicto
+Existing,Existente
+Present,Presente
+Absent,Ausente
+Half Day,Medio día
+Work From Home,Trabajo desde casa
+On Leave,De permiso
+Download Template,Descargar plantilla
+Generate Preview,Generar vista previa
+Validate Import,Validar importación
+Validate Attendance,Validar asistencia
+Create Draft Payroll Entry,Crear entrada de nómina en borrador
+Prepare Variable Earnings,Preparar ingresos variables
+Reverse Variable Earnings,Revertir ingresos variables
+Import validated.,Importación validada.
+Employee,Empleado
+Attendance Days,Días de asistencia
+Unmarked attendance,Asistencia sin marcar
+Create,Crear
+Date,Fecha
+State,Estado
+Details,Detalles
+No unmarked rows.,No hay filas de asistencia sin marcar.
+Existing or conflicting attendance,Asistencia existente o con conflictos
+None,Ninguno
+Confirm and Save Attendance,Confirmar y guardar asistencia
+Select at least one unmarked attendance row.,Seleccione al menos una fila de asistencia sin marcar.
+"Only checked, currently unmarked rows will be created and submitted. Existing attendance is never overwritten.","Solo se crearán y confirmarán las filas marcadas que actualmente no tienen asistencia. La asistencia existente nunca se sobrescribe."
+"Amounts are a non-fiscal preview from the daily rate and current attendance; Salary Slip remains the calculation authority.","Los importes son una vista previa no fiscal basada en la tarifa diaria y la asistencia actual; el recibo de salario sigue siendo la fuente oficial del cálculo."
+"This creates only a draft Payroll Entry. No Salary Slips, accounting entries, or payments will be created.","Esto crea únicamente una entrada de nómina en borrador. No se crearán recibos de salario, asientos contables ni pagos."
+"This creates and submits Additional Salary documents for the confirmed attendance, overtime and other income. It does not create Salary Slips or payments.","Esto crea y confirma documentos de salario adicional por la asistencia confirmada, las horas extra y otros ingresos. No crea recibos de salario ni pagos."
+This cancels only the Additional Salary documents created by this import.,Esto cancela únicamente los documentos de salario adicional creados por esta importación.
+Paste CSV or TSV data before generating the preview.,Pegue datos CSV o TSV antes de generar la vista previa.
+The pasted data does not include a header row.,Los datos pegados no incluyen una fila de encabezados.
+The header row cannot contain empty columns.,La fila de encabezados no puede contener columnas vacías.
+Applied payroll import source fields cannot be changed.,Los campos de origen de una importación de nómina aplicada no se pueden cambiar.
+Applied payroll import column mappings cannot be changed.,Los mapeos de columnas de una importación de nómina aplicada no se pueden cambiar.
+Applied payroll import preview rows cannot be changed.,Las filas de vista previa de una importación de nómina aplicada no se pueden cambiar.
+Period start cannot be after period end.,El inicio del período no puede ser posterior al fin del período.
+Fortnightly INSS/IR must cover exactly day 1-15 or day 16 through month end.,La nómina quincenal INSS/IR debe cubrir exactamente del día 1 al 15 o del día 16 al fin de mes.
+Applied payroll imports cannot be changed.,Las importaciones de nómina aplicadas no se pueden cambiar.
+More than one pasted column maps to {0}.,Más de una columna pegada está mapeada a {0}.
+Map either employee_code or employee_name before generating the preview.,Mapee employee_code o employee_name antes de generar la vista previa.
+Employee code and employee name refer to different employees.,El código y el nombre del empleado corresponden a empleados diferentes.
+More than one active employee matches the employee code.,Más de un empleado activo coincide con el código del empleado.
+Employee code or employee name is required.,Se requiere el código o el nombre del empleado.
+More than one active employee has that normalized name.,Más de un empleado activo tiene ese nombre normalizado.
+Employee not found. Suggestions: {0},Empleado no encontrado. Sugerencias: {0}
+No active employee matches this row in the selected company.,Ningún empleado activo coincide con esta fila en la compañía seleccionada.
+Identical duplicate of row {0}; ignored.,Duplicado idéntico de la fila {0}; se ignoró.
+Conflicting duplicate of row {0}; resolve it before applying.,Duplicado en conflicto con la fila {0}; resuélvalo antes de aplicar.
+Viático columns were ignored and will never be applied: {0},Las columnas de viáticos se ignoraron y nunca se aplicarán: {0}
+Row {0}: {1} is not a valid number.,Fila {0}: {1} no es un número válido.
+A default Salary Structure is required before applying the import.,Se requiere una estructura salarial predeterminada antes de aplicar la importación.
+The selected Salary Structure must be submitted and active.,La estructura salarial seleccionada debe estar confirmada y activa.
+The selected Salary Structure does not match the company currency and company.,La estructura salarial seleccionada no coincide con la compañía ni con su moneda.
+Fortnightly INSS/IR requires a Bimonthly Salary Structure (1-15 and 16-end of month).,La nómina quincenal INSS/IR requiere una estructura salarial quincenal (1-15 y 16-fin de mes).
+The selected Salary Structure does not define a payroll frequency.,La estructura salarial seleccionada no define una frecuencia de nómina.
+Project payroll requires a Project.,La nómina por proyecto requiere un proyecto.
+Row {0} is not matched to exactly one active employee.,La fila {0} no coincide exactamente con un empleado activo.
+Row {0}: a non-cancelled Salary Slip overlaps the selected period.,Fila {0}: un recibo de salario no cancelado se superpone con el período seleccionado.
+Row {0}: the employee lacks the selected active Salary Structure Assignment.,Fila {0}: el empleado no tiene asignada la estructura salarial activa seleccionada.
+Row {0}: row project differs from the import project.,Fila {0}: el proyecto de la fila es diferente del proyecto de la importación.
+Row {0}: row cost center differs from the import cost center.,Fila {0}: el centro de costos de la fila es diferente del centro de costos de la importación.
+Row {0}: select an overtime Salary Component.,Fila {0}: seleccione un componente salarial de horas extra.
+Row {0}: select an other-income Salary Component.,Fila {0}: seleccione un componente salarial de otros ingresos.
+Row {0}: select a basic Salary Component for the attendance-based amount.,Fila {0}: seleccione un componente de salario básico para el importe basado en asistencia.
+The selected basic salary component is not an earning in the Salary Structure.,El componente de salario básico seleccionado no es un ingreso en la estructura salarial.
+overtime,horas extra
+other income,otros ingresos
+The selected {0} Salary Component must be an Earning.,El componente salarial seleccionado para {0} debe ser un ingreso.
+"Basic salary, overtime and other income must use different Salary Components.","El salario básico, las horas extra y otros ingresos deben usar componentes salariales diferentes."
+Professional Services requires an existing 10% withholding deduction in the selected Salary Structure.,Servicios profesionales requiere una deducción de retención del 10% existente en la estructura salarial seleccionada.
+Fortnightly INSS/IR requires existing INSS and IR deductions in the Salary Structure.,La nómina quincenal INSS/IR requiere deducciones existentes de INSS e IR en la estructura salarial.
+Generate a preview before validating the import.,Genere una vista previa antes de validar la importación.
+Complete or resolve attendance for every work date before preparing variable earnings.,Complete o resuelva la asistencia de cada fecha laboral antes de preparar los ingresos variables.
+Validate the import before preparing variable earnings.,Valide la importación antes de preparar los ingresos variables.
+Import validation failed,La validación de la importación falló
+"Additional Salary {0} already exists for employee {1}, component {2}, and this payroll date.","Ya existe un salario adicional {0} para el empleado {1}, el componente {2} y esta fecha de nómina."
+Submitted Salary Slips exist. Cancel them through the standard payroll flow first.,Existen recibos de salario confirmados. Cancélelos primero mediante el flujo estándar de nómina.
+Variable earnings are already used by Salary Slips: {0}.,Los ingresos variables ya se utilizan en los recibos de salario: {0}.
+No matched employees are available for attendance validation.,No hay empleados coincidentes disponibles para validar la asistencia.
+Multiple active Attendance records exist for this employee and date.,Existen varios registros de asistencia activos para este empleado y esta fecha.
+Attendance exists in draft and must be submitted or cancelled.,La asistencia existe en borrador y debe confirmarse o cancelarse.
+Reverse the prepared variable earnings before changing attendance.,Revierta los ingresos variables preparados antes de cambiar la asistencia.
+Submitted Salary Slips exist. Attendance can no longer be changed from this import.,Existen recibos de salario confirmados. La asistencia ya no se puede cambiar desde esta importación.
+Attendance confirmations must be a list.,Las confirmaciones de asistencia deben ser una lista.
+Attendance confirmation requires a date.,La confirmación de asistencia requiere una fecha.
+Attendance confirmation is outside this import's employees or period.,La confirmación de asistencia está fuera de los empleados o del período de esta importación.
+Attendance cannot be created on a holiday or outside the employment dates.,No se puede crear asistencia en un feriado ni fuera de las fechas de empleo.
+Invalid Attendance status: {0},Estado de asistencia no válido: {0}
+Attendance already exists for {0} on {1}; it was not overwritten.,Ya existe asistencia para {0} el {1}; no se sobrescribió.
+Validate the import successfully before creating a Payroll Entry.,Valide correctamente la importación antes de crear una entrada de nómina.
+Company default payroll payable account is required.,Se requiere la cuenta por pagar de nómina predeterminada de la compañía.
+A Cost Center is required to create a draft Payroll Entry.,Se requiere un centro de costos para crear una entrada de nómina en borrador.
+No matched employees are available to apply.,No hay empleados coincidentes disponibles para aplicar.
+Asistencia existente o en conflicto,Asistencia existente o en conflicto
+Asistencia sin marcar,Asistencia sin marcar
+Ausente,Ausente
+Boolean values are not valid numeric payroll values.,Los valores booleanos no son valores numéricos válidos para la nómina.
+Campo,Campo
+Confirmar y guardar asistencia,Confirmar y guardar asistencia
+Crear,Crear
+Crear entrada de nómina en borrador,Crear entrada de nómina en borrador
+Descargar plantilla TSV,Descargar plantilla TSV
+Descargar plantilla XLSX,Descargar plantilla XLSX
+Detalle,Detalle
+Días de asistencia,Días de asistencia
+El XLSX supera el límite de {0} hojas.,El XLSX supera el límite de {0} hojas.
+El archivo XLSX supera el límite de {0} MB.,El archivo XLSX supera el límite de {0} MB.
+El archivo adjunto no es un libro XLSX válido.,El archivo adjunto no es un libro XLSX válido.
+El contenido descomprimido del XLSX supera el límite permitido.,El contenido descomprimido del XLSX supera el límite permitido.
+Empleado,Empleado
+"Este archivo, hoja y sección se solapa con la importación existente: {0}.","Este archivo, hoja y sección se solapa con la importación existente: {0}."
+Esto cancela únicamente los documentos de salario adicional creados por esta importación.,Esto cancela únicamente los documentos de salario adicional creados por esta importación.
+"Esto crea y envía documentos de salario adicional para la asistencia confirmada, horas extra y otros ingresos. No crea comprobantes ni pagos.","Esto crea y envía documentos de salario adicional para la asistencia confirmada, horas extra y otros ingresos. No crea comprobantes ni pagos."
+"Esto solo crea una entrada de nómina en borrador. No se crearán comprobantes, asientos ni pagos.","Esto solo crea una entrada de nómina en borrador. No se crearán comprobantes, asientos ni pagos."
+Estructura XLSX detectada,Estructura XLSX detectada
+Fecha,Fecha
+Formula-like or invalid numeric text is not allowed.,No se permiten fórmulas ni texto numérico no válido.
+Generar vista previa XLSX,Generar vista previa XLSX
+Generar vista previa pegada,Generar vista previa pegada
+Importación validada.,Importación validada.
+Inspeccionar XLSX,Inspeccionar XLSX
+Invalid numeric value(s): {0}.,Valores numéricos no válidos: {0}.
+"La fila final seleccionada alcanza un total o una nueva sección XLSX; seleccione el límite sugerido.","La fila final seleccionada alcanza un total o una nueva sección XLSX; seleccione el límite sugerido."
+La hoja {0} supera el límite de {1} filas o {2} columnas.,La hoja {0} supera el límite de {1} filas o {2} columnas.
+La sección XLSX supera el límite de {0} filas de datos.,La sección XLSX supera el límite de {0} filas de datos.
+Las filas sin marca se seleccionan como Presente. Puede cambiar cada excepción antes de confirmar. La asistencia existente nunca se sobrescribe.,Las filas sin marca se seleccionan como Presente. Puede cambiar cada excepción antes de confirmar. La asistencia existente nunca se sobrescribe.
+Los datos pegados superan el límite de {0} MB.,Los datos pegados superan el límite de {0} MB.
+Los datos pegados superan el límite de {0} columnas.,Los datos pegados superan el límite de {0} columnas.
+Los datos pegados superan el límite de {0} filas.,Los datos pegados superan el límite de {0} filas.
+"Los montos son una vista previa no fiscal basada en la tarifa diaria y la asistencia actual; el comprobante de nómina conserva la autoridad de cálculo.","Los montos son una vista previa no fiscal basada en la tarifa diaria y la asistencia actual; el comprobante de nómina conserva la autoridad de cálculo."
+Medio día,Medio día
+Ninguno,Ninguno
+No hay filas sin marcar.,No hay filas sin marcar.
+No se detectaron encabezados de nómina. Seleccione la hoja y las filas manualmente.,No se detectaron encabezados de nómina. Seleccione la hoja y las filas manualmente.
+Numeric payroll values cannot contain more than one currency token.,Los valores numéricos de nómina no pueden contener más de un símbolo de moneda.
+"Numeric payroll values may only contain digits, valid separators, and an optional currency.","Los valores numéricos de nómina solo pueden contener dígitos, separadores válidos y una moneda opcional."
+Numeric payroll values must be finite.,Los valores numéricos de nómina deben ser finitos.
+Preparar ingresos variables,Preparar ingresos variables
+Presente,Presente
+Revertir ingresos variables,Revertir ingresos variables
+Seleccione al menos una fila de asistencia sin marcar.,Seleccione al menos una fila de asistencia sin marcar.
+Trabajo desde casa,Trabajo desde casa
+Una celda pegada supera el límite de {0} caracteres.,Una celda pegada supera el límite de {0} caracteres.
+Validar asistencia,Validar asistencia
+Validar importación,Validar importación
+datos,datos
+encabezado,encabezado

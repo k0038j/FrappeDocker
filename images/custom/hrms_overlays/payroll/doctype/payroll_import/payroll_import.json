@@ -1,0 +1,326 @@
+{
+ "actions": [],
+ "autoname": "format:HR-PIMP-{YYYY}-{#####}",
+ "creation": "2026-10-17 00:00:00.000000",
+ "doctype": "DocType",
+ "document_type": "Other",
+ "engine": "InnoDB",
+ "field_order": [
+  "general_payroll_section",
+  "company",
+  "payroll_mode",
+  "default_salary_structure",
+  "project",
+  "column_break_general",
+  "cost_center",
+  "basic_salary_component",
+  "overtime_salary_component",
+  "other_income_salary_component",
+  "period_section",
+  "period_start",
+  "column_break_period",
+  "period_end",
+  "status_references_section",
+  "status",
+  "payroll_entry",
+  "column_break_references",
+  "additional_salary_documents",
+  "workbook_section",
+  "workbook_file",
+  "preview_section",
+  "preview_rows",
+  "validation_section",
+  "validation_messages",
+  "advanced_import_section",
+  "workbook_filename",
+  "workbook_hash",
+  "workbook_sheet",
+  "workbook_header_row",
+  "workbook_data_start_row",
+  "workbook_data_end_row",
+  "workbook_candidates",
+  "raw_data_section",
+  "raw_data",
+  "mapping_section",
+  "column_mappings",
+  "close_advanced_configuration"
+ ],
+ "fields": [
+  {
+   "fieldname": "general_payroll_section",
+   "fieldtype": "Section Break",
+   "label": "Configuración general de nómina"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Compañía",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_general",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "payroll_mode",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Modalidad de nómina",
+   "options": "\nProject\nFortnightly INSS/IR\nProfessional Services",
+   "reqd": 1
+  },
+  {
+   "fieldname": "default_salary_structure",
+   "fieldtype": "Link",
+   "label": "Estructura salarial predeterminada",
+   "options": "Salary Structure",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Proyecto",
+   "options": "Project"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Centro de costo",
+   "options": "Cost Center",
+   "reqd": 1
+  },
+  {
+   "description": "Opcional. Sobrescribe el componente básico con el importe calculado por asistencia.",
+   "fieldname": "basic_salary_component",
+   "fieldtype": "Link",
+   "label": "Componente de salario básico",
+   "options": "Salary Component"
+  },
+  {
+   "description": "Requerido cuando se importan horas extra.",
+   "fieldname": "overtime_salary_component",
+   "fieldtype": "Link",
+   "label": "Componente de horas extra",
+   "options": "Salary Component"
+  },
+  {
+   "description": "Requerido cuando se importan otros ingresos.",
+   "fieldname": "other_income_salary_component",
+   "fieldtype": "Link",
+   "label": "Componente de otros ingresos",
+   "options": "Salary Component"
+  },
+  {
+   "fieldname": "period_section",
+   "fieldtype": "Section Break",
+   "label": "Período de nómina"
+  },
+  {
+   "fieldname": "period_start",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Fecha de inicio",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_period",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "period_end",
+   "fieldtype": "Date",
+   "label": "Fecha de fin",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status_references_section",
+   "fieldtype": "Section Break",
+   "label": "Estado y referencias"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Estado",
+   "options": "Draft\nValidated\nApplied\nError",
+   "read_only": 1
+  },
+  {
+   "fieldname": "payroll_entry",
+   "fieldtype": "Link",
+   "label": "Entrada de nómina",
+   "options": "Payroll Entry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_references",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "additional_salary_documents",
+   "fieldtype": "Small Text",
+   "label": "Ingresos variables preparados",
+   "read_only": 1
+  },
+  {
+   "fieldname": "workbook_section",
+   "fieldtype": "Section Break",
+   "label": "Importar libro XLSX"
+  },
+  {
+   "description": "Adjunte un archivo XLSX. Solo se leen valores almacenados; no se ejecutan fórmulas.",
+   "fieldname": "workbook_file",
+   "fieldtype": "Attach",
+   "label": "Archivo XLSX"
+  },
+  {
+   "fieldname": "workbook_filename",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Nombre de archivo",
+   "read_only": 1
+  },
+  {
+   "fieldname": "workbook_hash",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Huella del archivo",
+   "read_only": 1
+  },
+  {
+   "fieldname": "workbook_sheet",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Hoja XLSX"
+  },
+  {
+   "default": "1",
+   "fieldname": "workbook_header_row",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Fila de encabezados"
+  },
+  {
+   "default": "2",
+   "fieldname": "workbook_data_start_row",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Fila inicial de datos"
+  },
+  {
+   "fieldname": "workbook_data_end_row",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Fila final de datos"
+  },
+  {
+   "fieldname": "workbook_candidates",
+   "fieldtype": "Small Text",
+   "hidden": 1,
+   "label": "Candidatos de encabezados detectados",
+   "read_only": 1
+  },
+  {
+   "fieldname": "advanced_import_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Configuración avanzada de importación"
+  },
+  {
+   "fieldname": "raw_data_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Datos pegados (CSV/TSV)"
+  },
+  {
+   "description": "Pegue CSV o TSV. Las columnas de viáticos se ignoran y nunca se aplican.",
+   "fieldname": "raw_data",
+   "fieldtype": "Long Text",
+   "hidden": 1,
+   "label": "Datos pegados"
+  },
+  {
+   "fieldname": "mapping_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Mapeo de columnas"
+  },
+  {
+   "fieldname": "column_mappings",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Mapeos de columnas",
+   "options": "Payroll Import Column"
+  },
+  {
+   "fieldname": "close_advanced_configuration",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "Cerrar configuración avanzada"
+  },
+  {
+   "fieldname": "preview_section",
+   "fieldtype": "Section Break",
+   "label": "Vista previa"
+  },
+  {
+   "fieldname": "preview_rows",
+   "fieldtype": "Table",
+   "label": "Filas de vista previa",
+   "options": "Payroll Import Row",
+   "read_only": 1
+  },
+  {
+   "fieldname": "validation_section",
+   "fieldtype": "Section Break",
+   "label": "Validación"
+  },
+  {
+   "fieldname": "validation_messages",
+   "fieldtype": "Small Text",
+   "label": "Mensajes de validación",
+   "read_only": 1
+  }
+ ],
+ "icon": "fa fa-upload",
+ "links": [],
+ "modified": "2026-10-17 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Payroll",
+ "name": "Payroll Import",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
