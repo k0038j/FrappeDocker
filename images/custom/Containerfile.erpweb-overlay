@@ -48,12 +48,15 @@ COPY --from=hrms-frontend-builder --chown=frappe:frappe /build/hrms/www/hrms.htm
 # Controlled payroll import: configurable paste template, employee resolution,
 # attendance preview, and draft Payroll Entry preparation.
 COPY --from=hrms --chown=frappe:frappe /hrms/payroll/doctype/payroll_entry/payroll_entry.js /home/frappe/frappe-bench/apps/hrms/hrms/payroll/doctype/payroll_entry/payroll_entry.js
+COPY --from=hrms --chown=frappe:frappe /hrms/payroll/doctype/payroll_entry/payroll_entry.py /home/frappe/frappe-bench/apps/hrms/hrms/payroll/doctype/payroll_entry/payroll_entry.py
+COPY --from=hrms --chown=frappe:frappe /hrms/payroll/doctype/employee_project_assignment/ /home/frappe/frappe-bench/apps/hrms/hrms/payroll/doctype/employee_project_assignment/
 COPY --from=hrms --chown=frappe:frappe /hrms/payroll/doctype/payroll_import/ /home/frappe/frappe-bench/apps/hrms/hrms/payroll/doctype/payroll_import/
 COPY --from=hrms --chown=frappe:frappe /hrms/payroll/doctype/payroll_import_column/ /home/frappe/frappe-bench/apps/hrms/hrms/payroll/doctype/payroll_import_column/
 COPY --from=hrms --chown=frappe:frappe /hrms/payroll/doctype/payroll_import_row/ /home/frappe/frappe-bench/apps/hrms/hrms/payroll/doctype/payroll_import_row/
 COPY --from=hrms --chown=frappe:frappe /hrms/workspace_sidebar/payroll.json /home/frappe/frappe-bench/apps/hrms/hrms/workspace_sidebar/payroll.json
 COPY --chown=frappe:frappe images/custom/hrms_overlays/patches.txt /home/frappe/frappe-bench/apps/hrms/hrms/patches.txt
 COPY --chown=frappe:frappe images/custom/hrms_overlays/patches/v16_0/backfill_payroll_import_cost_center.py /home/frappe/frappe-bench/apps/hrms/hrms/patches/v16_0/backfill_payroll_import_cost_center.py
+COPY --from=hrms --chown=frappe:frappe /hrms/patches/v16_0/create_employee_project_assignments_from_payroll_imports.py /home/frappe/frappe-bench/apps/hrms/hrms/patches/v16_0/create_employee_project_assignments_from_payroll_imports.py
 
 # Budget distribution visibility and validation.
 COPY --from=erpweb --chown=frappe:frappe /erpnext/accounts/doctype/budget/budget.js /home/frappe/frappe-bench/apps/erpnext/erpnext/accounts/doctype/budget/budget.js
